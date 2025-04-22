@@ -14,7 +14,7 @@ module TRMNL
       register(:logger) { Cogger.new id: "trmnl-api", formatter: :json }
 
       register :http do
-        HTTP.default_options = ::HTTP::Options.new features: {logging: {logger: self[:logger]}}
+        HTTP.default_options = HTTP::Options.new features: {logging: {logger: self[:logger]}}
         HTTP
       end
 
