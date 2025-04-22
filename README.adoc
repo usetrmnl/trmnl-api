@@ -2,28 +2,27 @@
 :toclevels: 5
 :figure-caption!:
 
-= Trmnl Api
+:trmnl_link: link:https://usetrmnl.com[TRMNL]
+:dry_monads_link: link:https://dry-rb.org/gems/dry-monads[Dry Monads]
+
+= TRMNL API
+
+A monadic {trmnl_link} API client. You can use this client in your own code to interact with our APIs for any/all devices that you own.
 
 toc::[]
 
 == Features
 
+* Provides {trmnl_link} API access.
+
 == Requirements
 
 . link:https://www.ruby-lang.org[Ruby].
+. A {trmnl_link} device (physical or virtual).
 
 == Setup
 
-To install _with_ security, run:
-
-[source,bash]
-----
-# 💡 Skip this line if you already have the public certificate installed.
-gem cert --add <(curl --compressed --location https://alchemists.io/gems.pem)
-gem install trmnl-api --trust-policy HighSecurity
-----
-
-To install _without_ security, run:
+To install, run:
 
 [source,bash]
 ----
@@ -46,13 +45,183 @@ require "trmnl/api"
 
 == Usage
 
+This client provides access to multiple endpoints. Each endpoint will answer either a `Success` or `Failure` (as provided by {dry_monads_link}) based on result of the API call. This allows you pattern match in your own code when using each endpoint. Example:
+
+``` ruby
+case endpoint.call token: "secret"
+  in Success(payload) then puts payload
+  in Failure(response) then puts response
+  else puts "Unknown HTTP response."
+end
+```
+
+See each endpoint for further details.
+
+=== Environment
+
+You can configure the client via the following environment variables:
+
+* `TRMNL_API_CONTENT_TYPE`: Defines the HTTP `Content-Type` header. You shouldn't need to change this but is here if you need it. Default: "application/json".
+* `TRMNL_API_URI`: Defines the API URI. Default: "https://trmnl.app/api".
+
+Any/all environment changes will be applied to all endpoint objects.
+
+=== Client
+
+Should you not want use any of the endpoint objects, you can drop down to the `Client`. Example:
+
+[source,ruby]
+----
+client = TRMNL::API::Client.new
+client.get "firmware/latest"
+----
+
+This'll yield a `HTTP::Response` object for which you can parse for information. You won't get a fully formed record as you'll find with each endpoint but you can parse the raw JSON as needed.
+
+You can also configure the client with a block:
+
+[source,ruby]
+----
+client = TRMNL::API::Client.new do |settings|
+  settings.content_type = "application/xml"
+  settings.uri = "https://api.trmnl.com"
+end
+----
+
+None of the above are legitimate uses but gives you an idea of what you can do if you don't want to use the environment variables.
+
+Lastly, the fully customized client can be injected into each endpoint. Example:
+
+[source,ruby]
+----
+client = TRMNL::API::Client.new
+endpoint = TRMNL::API::Endpoints::CurrentScreen.new client:
+endpoint.call token: "secret"
+----
+
+To learn more, see the xref:_endpoints[Endpoints] section below.
+
+=== Endpoints
+
+==== Current Screen
+
+Allows you to obtain current screen being displayed for your device. You must supply your device's API token as the `token`. Example:
+
+[source,ruby]
+----
+endpoint = TRMNL::API::Endpoints::CurrentScreen.new
+endpoint.call token: "secret"
+
+# Success(
+#   #<data TRMNL::API::Models::CurrentScreen
+#      refresh_rate=1773,
+#      image_url="https://usetrmnl.com/plugin-2025-04-10T11-34-38Z-380c77",
+#      filename="plugin-2025-04-10T11-34-38Z-380c77"
+#   >
+# )
+----
+
+==== Display
+
+Allows you to obtain current screen being displayed for your device with additional information not provided by the xref:_current_screen[Current Screen] endpoint. You must supply your device's API token as the `token`. Example:
+
+[source,ruby]
+----
+endpoint = TRMNL::API::Endpoints::Display.new
+endpoint.call token: "secret"
+
+# Success(
+#   #<struct TRMNL::API::Models::Display
+#     filename="plugin-1745348489",
+#     firmware_url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin",
+#     image_url="https://trmnl.s3.us-east-2.amazonaws.com/plugin-1745348489",
+#     image_url_timeout=0,
+#     refresh_rate=1771,
+#     reset_firmware=false,
+#     special_function="restart_playlist",
+#     update_firmware=true
+#   >
+# )
+----
+
+==== Firmware
+
+Allows you to obtain the current stable firmware version. Example:
+
+[source,ruby]
+----
+endpoint = TRMNL::API::Endpoints::Firmware.new
+endpoint.call
+
+# Success(#<data TRMNL::API::Models::Firmware url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin", version="1.4.8">)
+----
+
+==== Log
+
+Allows you to create a log entry (which is what the device reports when it captures an error). You must supply your device's API token as the `token`. Example:
+
+[source,ruby]
+----
+endpoint = TRMNL::API::Endpoints::Log.new
+endpoint.call token: "secret",
+              log: {
+                logs_array: [
+                  {
+                    log_id: 1,
+                    creation_timestamp: 1742022124,
+                    log_message: "returned code is not OK: 404",
+                    log_codeline: 597,
+                    device_status_stamp: {
+                      wifi_status: "connected",
+                      wakeup_reason: "timer",
+                      current_fw_version: "1.4.7",
+                      free_heap_size: 160656,
+                      special_function: "none",
+                      refresh_rate: 30,
+                      battery_voltage: 4.772,
+                      time_since_last_sleep_start: 31,
+                      wifi_rssi_level: -54
+                    },
+                    additional_info: {
+                      retry_attempt: 1
+                    },
+                    log_sourcefile: "src/bl.cpp"
+                  }
+                ]
+              }
+
+# Success(#<HTTP::Response/1.1 204 No Content...)
+----
+
+You'll either get a 204 No Content or 200 OK response depending on if the device exists or not.
+
+==== Setup
+
+Allows you to obtain the setup response for when a new device is setup. You must supply your device's MAC Address as the `id`. Example:
+
+
+[source,ruby]
+----
+endpoint = TRMNL::API::Endpoints::Setup.new
+endpoint.call id: "A1:B2:C3:D4:E5:F6"
+
+# Success(
+#   #<data TRMNL::API::Models::Setup
+#     api_key="secret",
+#     friendly_id="F51FDE",
+#     image_url="https://usetrmnl.com/images/setup/setup-logo.bmp",
+#     message="Register at usetrmnl.com/signup with Device ID 'F51FDE'"
+#   >
+# )
+----
+
 == Development
 
 To contribute, run:
 
 [source,bash]
 ----
-git clone https://github.com/bkuhlmann/trmnl-api
+git clone https://github.com/usetrmnl/trmnl-api
 cd trmnl-api
 bin/setup
 ----
@@ -73,21 +242,7 @@ To test, run:
 bin/rake
 ----
 
-== link:https://alchemists.io/policies/license[License]
-
-== link:https://alchemists.io/policies/security[Security]
-
-== link:https://alchemists.io/policies/code_of_conduct[Code of Conduct]
-
-== link:https://alchemists.io/policies/contributions[Contributions]
-
-== link:https://alchemists.io/policies/developer_certificate_of_origin[Developer Certificate of Origin]
-
-== link:https://alchemists.io/projects/trmnl-api/versions[Versions]
-
-== link:https://alchemists.io/community[Community]
-
 == Credits
 
 * Built with link:https://alchemists.io/projects/gemsmith[Gemsmith].
-* Engineered by link:https://alchemists.io/team/brooke_kuhlmann[Brooke Kuhlmann].
+* Engineered by link:https://usetrmnl.com/developers[TRMNL].
