@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require "dry/schema"
 require "zeitwerk"
+
+Dry::Schema.load_extensions :monads
 
 Zeitwerk::Loader.new.then do |loader|
   loader.inflector.inflect "api" => "API", "trmnl" => "TRMNL"
