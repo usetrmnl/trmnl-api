@@ -48,14 +48,28 @@ require "trmnl/api"
 This client provides access to multiple endpoints. Each endpoint will answer either a `Success` or `Failure` (as provided by {dry_monads_link}) based on result of the API call. This allows you pattern match in your own code when using each endpoint. Example:
 
 ``` ruby
-case endpoint.call token: "secret"
+client = TRMNL::API::Client.new
+
+case client.display token: "secret"
   in Success(payload) then puts payload
   in Failure(response) then puts response
-  else puts "Unknown HTTP response."
+  else puts "Unknown response."
 end
 ```
 
-See each endpoint for further details.
+See xref:_endpoints[Endpoints] for further details.
+
+=== Configuration
+
+By default, you shouldn't need to change the default configuration but you can always use a block to adjust settings as desired. If you don't configure the client, then the following defaults will be used:
+
+[source,ruby]
+----
+client = TRMNL::API::Client.new do |settings|
+  settings.content_type = "application/json",
+  settings.uri = "https://trmnl.app/api"
+end
+----
 
 === Environment
 
@@ -64,42 +78,7 @@ You can configure the client via the following environment variables:
 * `TRMNL_API_CONTENT_TYPE`: Defines the HTTP `Content-Type` header. You shouldn't need to change this but is here if you need it. Default: "application/json".
 * `TRMNL_API_URI`: Defines the API URI. Default: "https://trmnl.app/api".
 
-Any/all environment changes will be applied to all endpoint objects.
-
-=== Client
-
-Should you not want use any of the endpoint objects, you can drop down to the `Client`. Example:
-
-[source,ruby]
-----
-client = TRMNL::API::Client.new
-client.get "firmware/latest"
-----
-
-This'll yield a `HTTP::Response` object for which you can parse for information. You won't get a fully formed record as you'll find with each endpoint but you can parse the raw JSON as needed.
-
-You can also configure the client with a block:
-
-[source,ruby]
-----
-client = TRMNL::API::Client.new do |settings|
-  settings.content_type = "application/xml"
-  settings.uri = "https://api.trmnl.com"
-end
-----
-
-None of the above are legitimate uses but gives you an idea of what you can do if you don't want to use the environment variables.
-
-Lastly, the fully customized client can be injected into each endpoint. Example:
-
-[source,ruby]
-----
-client = TRMNL::API::Client.new
-endpoint = TRMNL::API::Endpoints::CurrentScreen.new client:
-endpoint.call token: "secret"
-----
-
-To learn more, see the xref:_endpoints[Endpoints] section below.
+Any/all environment changes will be applied unless you override these settings via the client configuration block shown above.
 
 === Endpoints
 
@@ -109,8 +88,8 @@ Allows you to obtain current screen being displayed for your device. You must su
 
 [source,ruby]
 ----
-endpoint = TRMNL::API::Endpoints::CurrentScreen.new
-endpoint.call token: "secret"
+client = TRMNL::API::Client.new
+client.current_screen token: "secret"
 
 # Success(
 #   #<data TRMNL::API::Models::CurrentScreen
@@ -127,8 +106,8 @@ Allows you to obtain current screen being displayed for your device with additio
 
 [source,ruby]
 ----
-endpoint = TRMNL::API::Endpoints::Display.new
-endpoint.call token: "secret"
+client = TRMNL::API::Client.new
+client.display token: "secret"
 
 # Success(
 #   #<struct TRMNL::API::Models::Display
@@ -150,8 +129,8 @@ Allows you to obtain the current stable firmware version. Example:
 
 [source,ruby]
 ----
-endpoint = TRMNL::API::Endpoints::Firmware.new
-endpoint.call
+client = TRMNL::API::Client.new
+client.call
 
 # Success(#<data TRMNL::API::Models::Firmware url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin", version="1.4.8">)
 ----
@@ -162,33 +141,33 @@ Allows you to create a log entry (which is what the device reports when it captu
 
 [source,ruby]
 ----
-endpoint = TRMNL::API::Endpoints::Log.new
-endpoint.call token: "secret",
-              log: {
-                logs_array: [
-                  {
-                    log_id: 1,
-                    creation_timestamp: 1742022124,
-                    log_message: "returned code is not OK: 404",
-                    log_codeline: 597,
-                    device_status_stamp: {
-                      wifi_status: "connected",
-                      wakeup_reason: "timer",
-                      current_fw_version: "1.4.7",
-                      free_heap_size: 160656,
-                      special_function: "none",
-                      refresh_rate: 30,
-                      battery_voltage: 4.772,
-                      time_since_last_sleep_start: 31,
-                      wifi_rssi_level: -54
-                    },
-                    additional_info: {
-                      retry_attempt: 1
-                    },
-                    log_sourcefile: "src/bl.cpp"
-                  }
-                ]
-              }
+client = TRMNL::API::Client.new
+client.call token: "secret",
+            log: {
+              logs_array: [
+                {
+                  log_id: 1,
+                  creation_timestamp: 1742022124,
+                  log_message: "returned code is not OK: 404",
+                  log_codeline: 597,
+                  device_status_stamp: {
+                    wifi_status: "connected",
+                    wakeup_reason: "timer",
+                    current_fw_version: "1.4.7",
+                    free_heap_size: 160656,
+                    special_function: "none",
+                    refresh_rate: 30,
+                    battery_voltage: 4.772,
+                    time_since_last_sleep_start: 31,
+                    wifi_rssi_level: -54
+                  },
+                  additional_info: {
+                    retry_attempt: 1
+                  },
+                  log_sourcefile: "src/bl.cpp"
+                }
+              ]
+            }
 
 # Success(#<HTTP::Response/1.1 204 No Content...)
 ----
@@ -199,11 +178,10 @@ You'll either get a 204 No Content or 200 OK response depending on if the device
 
 Allows you to obtain the setup response for when a new device is setup. You must supply your device's MAC Address as the `id`. Example:
 
-
 [source,ruby]
 ----
-endpoint = TRMNL::API::Endpoints::Setup.new
-endpoint.call id: "A1:B2:C3:D4:E5:F6"
+client = TRMNL::API::Client.new
+client.call id: "A1:B2:C3:D4:E5:F6"
 
 # Success(
 #   #<data TRMNL::API::Models::Setup
