@@ -7,11 +7,11 @@ module TRMNL
     module Endpoints
       # Handles API request/response.
       class Setup
-        include Dependencies[:client, contract: "contracts.setup", model: "models.setup"]
+        include Dependencies[:requester, contract: "contracts.setup", model: "models.setup"]
         include Pipeable
 
         def call id:
-          pipe client.get("setup", headers: {"ID" => id}),
+          pipe requester.get("setup", headers: {"ID" => id}),
                try(:parse, catch: JSON::ParserError),
                validate(contract, as: :to_h),
                to(model, :for)

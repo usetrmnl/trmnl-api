@@ -7,11 +7,11 @@ module TRMNL
     module Endpoints
       # Handles API request/response.
       class Display
-        include Dependencies[:client, contract: "contracts.display", model: "models.display"]
+        include Dependencies[:requester, contract: "contracts.display", model: "models.display"]
         include Pipeable
 
         def call token:
-          pipe client.get("display", headers: {"Access-Token" => token}),
+          pipe requester.get("display", headers: {"Access-Token" => token}),
                try(:parse, catch: JSON::ParserError),
                validate(contract, as: :to_h),
                to(model, :for)

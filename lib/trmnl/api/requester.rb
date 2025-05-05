@@ -7,7 +7,7 @@ module TRMNL
   module API
     # Provides a low level configurable and monadic API client.
     # :reek:DataClump
-    class Client
+    class Requester
       include Dry::Monads[:result]
 
       HEADERS = {}.freeze
