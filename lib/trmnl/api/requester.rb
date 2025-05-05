@@ -8,14 +8,13 @@ module TRMNL
     # Provides a low level configurable and monadic API client.
     # :reek:DataClump
     class Requester
+      include Dependencies[:settings, :http]
       include Dry::Monads[:result]
 
       HEADERS = {}.freeze
 
-      def initialize settings: TRMNL::API::Configuration::Loader.new.call, http: HTTP
-        @settings = settings
-        @http = http
-
+      def initialize(**)
+        super
         yield settings if block_given?
       end
 
