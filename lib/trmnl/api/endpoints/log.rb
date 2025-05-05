@@ -5,9 +5,9 @@ module TRMNL
     module Endpoints
       # Handles API request/response.
       class Log
-        include Dependencies[:client]
+        include Dependencies[:requester]
 
-        def call(token:, **) = client.post("log", headers: {"Access-Token" => token}, **)
+        def call(token:, **) = requester.post("log", headers: {"Access-Token" => token}, **)
       end
     end
   end

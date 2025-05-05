@@ -2,15 +2,15 @@
 
 require "spec_helper"
 
-RSpec.describe TRMNL::API::Client do
+RSpec.describe TRMNL::API::Requester do
   using Refinements::Hash
 
-  subject(:client) { described_class.new http: }
+  subject(:requester) { described_class.new http: }
 
   describe "#initialize" do
     it "initializes with block" do
-      client = described_class.new { |settings| settings.content_type = "application/xml" }
-      body = client.get("bogus").failure.to_s
+      requester = described_class.new { |settings| settings.content_type = "application/xml" }
+      body = requester.get("bogus").failure.to_s
 
       expect(body).to include("Not Found")
     end
@@ -38,7 +38,7 @@ RSpec.describe TRMNL::API::Client do
       end
 
       it "answers response" do
-        response = client.get "current_screen"
+        response = requester.get "current_screen"
         payload = response.fmap(&:parse).bind(&:symbolize_keys!)
 
         expect(payload).to eq(
@@ -56,7 +56,7 @@ RSpec.describe TRMNL::API::Client do
       let(:response) { instance_spy HTTP::Response }
 
       it "includes custom header" do
-        client.get "current_screen", headers: {"ID" => "123"}
+        requester.get "current_screen", headers: {"ID" => "123"}
 
         expect(http).to have_received(:headers).with(
           "Content-Type" => "application/json",
@@ -82,7 +82,7 @@ RSpec.describe TRMNL::API::Client do
       end
 
       it "answers failure response" do
-        response = client.get "current_screen"
+        response = requester.get "current_screen"
         payload = response.alt_map { |result| result.parse.symbolize_keys! }
 
         expect(payload).to be_failure(message: "Danger!")
@@ -101,7 +101,7 @@ RSpec.describe TRMNL::API::Client do
     end
 
     it "answers response" do
-      result = client.post "log", log: {}
+      result = requester.post "log", log: {}
       expect(result.success.status).to eq(204)
     end
   end

@@ -3,11 +3,11 @@
 require "spec_helper"
 
 RSpec.describe TRMNL::API::Endpoints::Log do
-  subject(:endpoint) { described_class.new client: }
+  subject(:endpoint) { described_class.new requester: }
 
   include_context "with application dependencies"
 
-  let(:client) { TRMNL::API::Client.new http: }
+  let(:requester) { TRMNL::API::Requester.new http: }
 
   describe "#call" do
     let :http do

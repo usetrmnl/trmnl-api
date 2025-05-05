@@ -3,11 +3,11 @@
 require "spec_helper"
 
 RSpec.describe TRMNL::API::Endpoints::Display do
-  subject(:endpoint) { described_class.new client: }
+  subject(:endpoint) { described_class.new requester: }
 
   include_context "with application dependencies"
 
-  let(:client) { TRMNL::API::Client.new http: }
+  let(:requester) { TRMNL::API::Requester.new http: }
 
   describe "#call" do
     context "with success" do
@@ -64,7 +64,7 @@ RSpec.describe TRMNL::API::Endpoints::Display do
       end
 
       it "answers failure response" do
-        result = described_class.new(client:).call token: "secret"
+        result = described_class.new(requester:).call token: "secret"
         expect(result).to match(Failure(be_a(HTTP::Response)))
       end
     end
