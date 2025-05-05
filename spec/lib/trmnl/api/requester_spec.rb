@@ -7,7 +7,11 @@ RSpec.describe TRMNL::API::Requester do
 
   subject(:requester) { described_class.new http: }
 
+  include_context "with application dependencies"
+
   describe "#initialize" do
+    let(:http) { HTTP }
+
     it "initializes with block" do
       requester = described_class.new { |settings| settings.content_type = "application/xml" }
       body = requester.get("bogus").failure.to_s
