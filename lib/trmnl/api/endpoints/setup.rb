@@ -7,7 +7,12 @@ module TRMNL
     module Endpoints
       # Handles API request/response.
       class Setup
-        include Dependencies[:requester, contract: "contracts.setup", model: "models.setup"]
+        include TRMNL::API::Dependencies[
+          :requester,
+          contract: "contracts.setup",
+          model: "models.setup"
+        ]
+
         include Pipeable
 
         def call id:

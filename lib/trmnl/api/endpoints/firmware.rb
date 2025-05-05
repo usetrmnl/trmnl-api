@@ -7,7 +7,12 @@ module TRMNL
     module Endpoints
       # Handles API request/response.
       class Firmware
-        include Dependencies[:requester, contract: "contracts.firmware", model: "models.firmware"]
+        include TRMNL::API::Dependencies[
+          :requester,
+          contract: "contracts.firmware",
+          model: "models.firmware"
+        ]
+
         include Pipeable
 
         def call
