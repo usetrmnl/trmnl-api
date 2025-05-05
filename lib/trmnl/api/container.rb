@@ -10,6 +10,7 @@ module TRMNL
     module Container
       extend Containable
 
+      register(:settings) { TRMNL::API::Configuration::Loader.new.call }
       register(:requester) { API::Requester.new }
       register(:logger) { Cogger.new id: "trmnl-api", formatter: :json }
 
