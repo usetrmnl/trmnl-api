@@ -7,7 +7,12 @@ module TRMNL
     module Endpoints
       # Handles API request/response.
       class Display
-        include Dependencies[:requester, contract: "contracts.display", model: "models.display"]
+        include TRMNL::API::Dependencies[
+          :requester,
+          contract: "contracts.display",
+          model: "models.display"
+        ]
+
         include Pipeable
 
         def call token:

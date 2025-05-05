@@ -7,7 +7,7 @@ module TRMNL
     module Endpoints
       # Handles API request/response.
       class CurrentScreen
-        include Dependencies[
+        include TRMNL::API::Dependencies[
           :requester,
           contract: "contracts.current_screen",
           model: "models.current_screen"
