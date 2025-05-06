@@ -130,7 +130,7 @@ Allows you to obtain the current stable firmware version. Example:
 [source,ruby]
 ----
 client = TRMNL::API::Client.new
-client.call
+client.firmware
 
 # Success(#<data TRMNL::API::Models::Firmware url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin", version="1.4.8">)
 ----
@@ -142,7 +142,7 @@ Allows you to create a log entry (which is what the device reports when it captu
 [source,ruby]
 ----
 client = TRMNL::API::Client.new
-client.call token: "secret",
+client.log token: "secret",
             log: {
               logs_array: [
                 {
@@ -181,7 +181,7 @@ Allows you to obtain the setup response for when a new device is setup. You must
 [source,ruby]
 ----
 client = TRMNL::API::Client.new
-client.call id: "A1:B2:C3:D4:E5:F6"
+client.setup id: "A1:B2:C3:D4:E5:F6"
 
 # Success(
 #   #<data TRMNL::API::Models::Setup
