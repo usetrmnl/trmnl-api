@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "inspectable"
 require "pipeable"
 
 module TRMNL
@@ -13,6 +14,7 @@ module TRMNL
           model: "models.current_screen"
         ]
 
+        include Inspectable[contract: :class]
         include Pipeable
 
         def call token:
