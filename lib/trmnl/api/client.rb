@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "inspectable"
+
 module TRMNL
   module API
     # Provides the primary client for making API requests.
@@ -12,6 +14,14 @@ module TRMNL
         endpoint_firmware: :firmware,
         endpoint_log: :log,
         endpoint_setup: :setup
+      ]
+
+      include Inspectable[
+        endpoint_current_screen: :class,
+        endpoint_display: :class,
+        endpoint_firmware: :class,
+        endpoint_log: :class,
+        endpoint_setup: :class
       ]
 
       def initialize(**)

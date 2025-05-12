@@ -75,4 +75,16 @@ RSpec.describe TRMNL::API::Client do
       expect(client.setup(id: "abc")).to have_received(:call).with(id: "abc")
     end
   end
+
+  describe "#inspect" do
+    it "answers endpoint classes" do
+      expect(client.inspect).to include(
+        "@endpoint_current_screen=TRMNL::API::Endpoints::CurrentScreen, " \
+        "@endpoint_display=TRMNL::API::Endpoints::Display, " \
+        "@endpoint_firmware=TRMNL::API::Endpoints::Firmware, " \
+        "@endpoint_log=TRMNL::API::Endpoints::Log, " \
+        "@endpoint_setup=TRMNL::API::Endpoints::Setup, "
+      )
+    end
+  end
 end
