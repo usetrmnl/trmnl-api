@@ -63,4 +63,8 @@ RSpec.describe TRMNL::API::Endpoints::Setup do
       end
     end
   end
+
+  describe "#inspect" do
+    it_behaves_like "an inspectable endpoint", described_class.new
+  end
 end
