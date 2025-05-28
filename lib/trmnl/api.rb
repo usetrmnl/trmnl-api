@@ -16,7 +16,7 @@ module TRMNL
   # Main namespace.
   module API
     def self.loader registry = Zeitwerk::Registry
-      @loader ||= registry.loaders.find { |loader| loader.tag == "trmnl-api" }
+      @loader ||= registry.loaders.each.find { |loader| loader.tag == "trmnl-api" }
     end
 
     def self.new(&) = Client.new(&)
