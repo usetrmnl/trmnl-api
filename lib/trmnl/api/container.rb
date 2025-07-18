@@ -23,6 +23,7 @@ module TRMNL
         register :current_screen, Contracts::CurrentScreen
         register :display, Contracts::Display
         register :firmware, Contracts::Firmware
+        register :model, Contracts::Model
         register :setup, Contracts::Setup
       end
 
@@ -30,6 +31,7 @@ module TRMNL
         register :current_screen, Models::CurrentScreen
         register :display, Models::Display
         register :firmware, Models::Firmware
+        register :model, Models::Model
         register :setup, Models::Setup
       end
     end
