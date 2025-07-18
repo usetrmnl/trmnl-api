@@ -174,6 +174,36 @@ client.log token: "secret",
 
 You'll either get a 204 No Content or 200 OK response depending on if the device exists or not.
 
+==== Models
+
+Allows you to obtain the model information for all devices and screens. Example:
+
+[source,ruby]
+----
+client = TRMNL::API::Client.new
+client.models
+
+# Success(
+#   #<data TRMNL::API::Models::Model
+#     name="test",
+#     label="Test",
+#     description="A test.",
+#     colors=2,
+#     bit_depth=1,
+#     scale_factor=1,
+#     rotation=90,
+#     mime_type="image/png",
+#     width=800,
+#     height=480,
+#     offset_x=10,
+#     offset_y=15,
+#     published_at="2025-07-16T18:18:11+00:00"
+#   >
+# )
+----
+
+ℹ️ The `scale_factor` can be an integer or float.
+
 ==== Setup
 
 Allows you to obtain the setup response for when a new device is setup. You must supply your device's MAC Address as the `id`. Example:
