@@ -13,6 +13,7 @@ module TRMNL
         register(:display) { Display.new }
         register(:firmware) { Firmware.new }
         register(:log) { Log.new }
+        register(:models) { Model.new }
         register(:setup) { Setup.new }
       end
     end
