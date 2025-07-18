@@ -67,6 +67,15 @@ RSpec.describe TRMNL::API::Client do
     end
   end
 
+  describe "#models" do
+    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Model }
+
+    it "messages endpoint" do
+      client = described_class.new endpoint_models: endpoint
+      expect(client.models).to have_received(:call).with(no_args)
+    end
+  end
+
   describe "#setup" do
     let(:endpoint) { instance_spy TRMNL::API::Endpoints::Setup }
 
@@ -83,6 +92,7 @@ RSpec.describe TRMNL::API::Client do
         "@endpoint_display=TRMNL::API::Endpoints::Display, " \
         "@endpoint_firmware=TRMNL::API::Endpoints::Firmware, " \
         "@endpoint_log=TRMNL::API::Endpoints::Log, " \
+        "@endpoint_models=TRMNL::API::Endpoints::Model, " \
         "@endpoint_setup=TRMNL::API::Endpoints::Setup, "
       )
     end

@@ -13,6 +13,7 @@ module TRMNL
         endpoint_display: :display,
         endpoint_firmware: :firmware,
         endpoint_log: :log,
+        endpoint_models: :models,
         endpoint_setup: :setup
       ]
 
@@ -21,6 +22,7 @@ module TRMNL
         endpoint_display: :class,
         endpoint_firmware: :class,
         endpoint_log: :class,
+        endpoint_models: :class,
         endpoint_setup: :class
       ]
 
@@ -36,6 +38,8 @@ module TRMNL
       def firmware = endpoint_firmware.call
 
       def log(**) = endpoint_log.call(**)
+
+      def models(**) = endpoint_models.call(**)
 
       def setup(**) = endpoint_setup.call(**)
     end
