@@ -69,7 +69,7 @@ RSpec.describe TRMNL::API::Requester do
       end
     end
 
-    context "with failure" do
+    context "with HTTP error status" do
       let :http do
         HTTP::Fake::Client.new do
           get "/api/current_screen" do
@@ -85,11 +85,70 @@ RSpec.describe TRMNL::API::Requester do
         end
       end
 
-      it "answers failure response" do
+      it "answers failure" do
         response = requester.get "current_screen"
         payload = response.alt_map { |result| result.parse.symbolize_keys! }
 
         expect(payload).to be_failure(message: "Danger!")
+      end
+    end
+
+    context "with connection failure" do
+      let :http do
+        class_spy(HTTP).tap do |spy|
+          allow(spy).to receive(:headers).and_raise HTTP::ConnectionError, "Danger!"
+        end
+      end
+
+      it "logs debug message" do
+        requester.get "current_screen"
+        expect(logger.reread).to match(/🔎.+Danger!/)
+      end
+
+      it "answers failure" do
+        expect(requester.get("current_screen")).to be_failure(
+          %(Unable to connect: "https://trmnl.app/api/current_screen". ) \
+          "Is the network intermittent or down?"
+        )
+      end
+    end
+
+    context "with timeout failure" do
+      let :http do
+        class_spy(HTTP).tap do |spy|
+          allow(spy).to receive(:headers).and_raise HTTP::TimeoutError, "Danger!"
+        end
+      end
+
+      it "logs debug message" do
+        requester.get "current_screen"
+        expect(logger.reread).to match(/🔎.+Danger!/)
+      end
+
+      it "answers failure" do
+        expect(requester.get("current_screen")).to be_failure(
+          %(Connection timed out: "https://trmnl.app/api/current_screen".)
+        )
+      end
+    end
+
+    context "with SSL failure" do
+      let :http do
+        class_spy(HTTP).tap do |spy|
+          allow(spy).to receive(:headers).and_raise OpenSSL::SSL::SSLError, "Danger!"
+        end
+      end
+
+      it "logs debug message" do
+        requester.get "current_screen"
+        expect(logger.reread).to match(/🔎.+Danger!/)
+      end
+
+      it "answers failure" do
+        expect(requester.get("current_screen")).to be_failure(
+          %(Unable to secure connection: "https://trmnl.app/api/current_screen". ) \
+          "Is your certificate or SSL valid?"
+        )
       end
     end
   end

@@ -3,5 +3,11 @@ exclude_paths:
   - vendor
 
 detectors:
+  DataClump:
+    exclude:
+      - TRMNL::API::Requester
   LongParameterList:
     enabled: false
+  TooManyStatements:
+    exclude:
+      - TRMNL::API::Requester#call
