@@ -10,6 +10,7 @@ RSpec.describe TRMNL::API::Contracts::Model do
       name: "test",
       label: "Test",
       description: "A test.",
+      kind: "trmnl",
       colors: 2,
       bit_depth: 1,
       scale_factor: 1,

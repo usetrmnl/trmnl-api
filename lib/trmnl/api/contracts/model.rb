@@ -11,6 +11,7 @@ module TRMNL
           required(:name).filled :string
           required(:label).filled :string
           required(:description).filled :string
+          required(:kind).filled :string
           required(:colors).filled :integer
           required(:bit_depth).filled :integer
           required(:scale_factor) { filled? > int? | float? }

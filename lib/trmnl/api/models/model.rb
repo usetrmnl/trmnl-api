@@ -8,6 +8,7 @@ module TRMNL
         :name,
         :label,
         :description,
+        :kind,
         :colors,
         :bit_depth,
         :scale_factor,
