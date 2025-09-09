@@ -10,7 +10,7 @@ RSpec.describe TRMNL::API::Configuration::Loader do
       expect(loader.call).to eq(
         TRMNL::API::Configuration::Content[
           content_type: "application/json",
-          uri: "https://trmnl.app/api"
+          uri: "https://usetrmnl.com/api"
         ]
       )
     end
@@ -18,13 +18,13 @@ RSpec.describe TRMNL::API::Configuration::Loader do
     it "answers custom configuration when environment is set" do
       loader = described_class.new environment: {
         "TRMNL_API_CONTENT_TYPE" => "application/xml",
-        "TRMNL_API_URI" => "https://api.trmnl.com"
+        "TRMNL_API_URI" => "https://usetrmnl.com"
       }
 
       expect(loader.call).to eq(
         TRMNL::API::Configuration::Content[
           content_type: "application/xml",
-          uri: "https://api.trmnl.com"
+          uri: "https://usetrmnl.com"
         ]
       )
     end
