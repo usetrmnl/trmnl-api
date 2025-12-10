@@ -9,6 +9,7 @@ module TRMNL
       include Dependencies[:settings]
 
       include Endpoints::Dependencies[
+        endpoint_categories: :categories,
         endpoint_current_screen: :current_screen,
         endpoint_display: :display,
         endpoint_firmware: :firmware,
@@ -18,6 +19,7 @@ module TRMNL
       ]
 
       include Inspectable[
+        endpoint_categories: :class,
         endpoint_current_screen: :class,
         endpoint_display: :class,
         endpoint_firmware: :class,
@@ -30,6 +32,8 @@ module TRMNL
         super
         yield settings if block_given?
       end
+
+      def categories = endpoint_categories.call
 
       def current_screen(**) = endpoint_current_screen.call(**)
 

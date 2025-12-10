@@ -31,6 +31,15 @@ RSpec.describe TRMNL::API::Client do
     end
   end
 
+  describe "#categories" do
+    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Category }
+
+    it "messages endpoint" do
+      client = described_class.new endpoint_categories: endpoint
+      expect(client.categories).to have_received(:call)
+    end
+  end
+
   describe "#current_screen" do
     let(:endpoint) { instance_spy TRMNL::API::Endpoints::CurrentScreen }
 
