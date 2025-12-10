@@ -20,6 +20,7 @@ module TRMNL
       end
 
       namespace :contracts do
+        register :category, Contracts::Category
         register :current_screen, Contracts::CurrentScreen
         register :display, Contracts::Display
         register :firmware, Contracts::Firmware
