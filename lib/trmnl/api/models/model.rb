@@ -18,7 +18,8 @@ module TRMNL
         :height,
         :offset_x,
         :offset_y,
-        :published_at
+        :palette_ids,
+        :css
       ) do
         def self.for(attributes) = new(**attributes)
 

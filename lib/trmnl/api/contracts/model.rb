@@ -21,7 +21,15 @@ module TRMNL
           required(:height).filled :integer
           required(:offset_x).filled :integer
           required(:offset_y).filled :integer
-          required(:published_at).filled :time
+          required(:palette_ids).array(:string)
+          optional(:css).hash do
+            optional(:classes).hash do
+              required(:device).filled :string
+              required(:size).filled :string
+            end
+
+            optional(:variables).filled(Types::CSSVariables)
+          end
         end
       end
     end

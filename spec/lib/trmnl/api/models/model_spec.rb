@@ -21,7 +21,17 @@ RSpec.describe TRMNL::API::Models::Model do
         height: 480,
         offset_x: 10,
         offset_y: 15,
-        published_at: "2025-07-16T18:18:11+00:00"
+        palette_ids: %w[bw grey-4],
+        css: {
+          classes: {
+            device: "screen--v2",
+            size: "screen--lg"
+          },
+          variables: [
+            %w[--screen-w 1040px],
+            %w[--screen-h 780px]
+          ]
+        }
       }
     end
 
@@ -46,7 +56,8 @@ RSpec.describe TRMNL::API::Models::Model do
         height: 0,
         offset_x: 0,
         offset_y: 0,
-        published_at: nil
+        palette_ids: nil,
+        css: nil
       )
     end
 
@@ -73,7 +84,8 @@ RSpec.describe TRMNL::API::Models::Model do
         height: 0,
         offset_x: 0,
         offset_y: 0,
-        published_at: nil
+        palette_ids: nil,
+        css: nil
       )
     end
   end
