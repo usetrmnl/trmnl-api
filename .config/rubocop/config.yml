@@ -4,3 +4,6 @@ inherit_gem:
 Metrics/ParameterLists:
   Exclude:
     - lib/trmnl/api/requester.rb
+Style/IpAddresses:
+  Exclude:
+    - spec/lib/trmnl/api/types_spec.rb
