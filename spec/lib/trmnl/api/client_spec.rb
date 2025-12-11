@@ -94,6 +94,15 @@ RSpec.describe TRMNL::API::Client do
     end
   end
 
+  describe "#palette" do
+    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Palette }
+
+    it "messages endpoint" do
+      client = described_class.new endpoint_palettes: endpoint
+      expect(client.palettes).to have_received(:call).with(no_args)
+    end
+  end
+
   describe "#setup" do
     let(:endpoint) { instance_spy TRMNL::API::Endpoints::Setup }
 
@@ -112,6 +121,7 @@ RSpec.describe TRMNL::API::Client do
         "@endpoint_ip_addresses=TRMNL::API::Endpoints::IPAddress, " \
         "@endpoint_log=TRMNL::API::Endpoints::Log, " \
         "@endpoint_models=TRMNL::API::Endpoints::Model, " \
+        "@endpoint_palettes=TRMNL::API::Endpoints::Palette, " \
         "@endpoint_setup=TRMNL::API::Endpoints::Setup, "
       )
     end

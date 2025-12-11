@@ -16,6 +16,7 @@ module TRMNL
         endpoint_ip_addresses: :ip_addresses,
         endpoint_log: :log,
         endpoint_models: :models,
+        endpoint_palettes: :palettes,
         endpoint_setup: :setup
       ]
 
@@ -27,6 +28,7 @@ module TRMNL
         endpoint_ip_addresses: :class,
         endpoint_log: :class,
         endpoint_models: :class,
+        endpoint_palettes: :class,
         endpoint_setup: :class
       ]
 
@@ -48,6 +50,8 @@ module TRMNL
       def log(**) = endpoint_log.call(**)
 
       def models(**) = endpoint_models.call(**)
+
+      def palettes = endpoint_palettes.call
 
       def setup(**) = endpoint_setup.call(**)
     end

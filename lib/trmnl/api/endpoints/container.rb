@@ -16,6 +16,7 @@ module TRMNL
         register(:ip_addresses) { IPAddress.new }
         register(:log) { Log.new }
         register(:models) { Model.new }
+        register(:palettes) { Palette.new }
         register(:setup) { Setup.new }
       end
     end
