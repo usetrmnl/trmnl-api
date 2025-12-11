@@ -6,7 +6,7 @@ require "zeitwerk"
 Dry::Schema.load_extensions :monads
 
 Zeitwerk::Loader.new.then do |loader|
-  loader.inflector.inflect "api" => "API", "trmnl" => "TRMNL"
+  loader.inflector.inflect "api" => "API", "ip_address" => "IPAddress", "trmnl" => "TRMNL"
   loader.tag = "trmnl-api"
   loader.push_dir "#{__dir__}/.."
   loader.setup

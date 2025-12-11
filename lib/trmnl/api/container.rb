@@ -24,6 +24,7 @@ module TRMNL
         register :current_screen, Contracts::CurrentScreen
         register :display, Contracts::Display
         register :firmware, Contracts::Firmware
+        register :ip_address, Contracts::IPAddress
         register :model, Contracts::Model
         register :setup, Contracts::Setup
       end
