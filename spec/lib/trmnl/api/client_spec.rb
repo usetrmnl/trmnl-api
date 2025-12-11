@@ -67,6 +67,15 @@ RSpec.describe TRMNL::API::Client do
     end
   end
 
+  describe "#ip_addresses" do
+    let(:endpoint) { instance_spy TRMNL::API::Endpoints::IPAddress }
+
+    it "messages endpoint" do
+      client = described_class.new endpoint_ip_addresses: endpoint
+      expect(client.ip_addresses).to have_received(:call)
+    end
+  end
+
   describe "#log" do
     let(:endpoint) { instance_spy TRMNL::API::Endpoints::Log }
 
@@ -100,6 +109,7 @@ RSpec.describe TRMNL::API::Client do
         "@endpoint_current_screen=TRMNL::API::Endpoints::CurrentScreen, " \
         "@endpoint_display=TRMNL::API::Endpoints::Display, " \
         "@endpoint_firmware=TRMNL::API::Endpoints::Firmware, " \
+        "@endpoint_ip_addresses=TRMNL::API::Endpoints::IPAddress, " \
         "@endpoint_log=TRMNL::API::Endpoints::Log, " \
         "@endpoint_models=TRMNL::API::Endpoints::Model, " \
         "@endpoint_setup=TRMNL::API::Endpoints::Setup, "

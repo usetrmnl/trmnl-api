@@ -13,6 +13,7 @@ module TRMNL
         endpoint_current_screen: :current_screen,
         endpoint_display: :display,
         endpoint_firmware: :firmware,
+        endpoint_ip_addresses: :ip_addresses,
         endpoint_log: :log,
         endpoint_models: :models,
         endpoint_setup: :setup
@@ -23,6 +24,7 @@ module TRMNL
         endpoint_current_screen: :class,
         endpoint_display: :class,
         endpoint_firmware: :class,
+        endpoint_ip_addresses: :class,
         endpoint_log: :class,
         endpoint_models: :class,
         endpoint_setup: :class
@@ -40,6 +42,8 @@ module TRMNL
       def display(**) = endpoint_display.call(**)
 
       def firmware = endpoint_firmware.call
+
+      def ip_addresses = endpoint_ip_addresses.call
 
       def log(**) = endpoint_log.call(**)
 

@@ -13,3 +13,4 @@ Style/IpAddresses:
   Exclude:
     - spec/lib/trmnl/api/types_spec.rb
     - spec/lib/trmnl/api/models/ip_address_spec.rb
+    - spec/lib/trmnl/api/endpoints/ip_address_spec.rb
