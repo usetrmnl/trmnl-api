@@ -82,6 +82,24 @@ Any/all environment changes will be applied unless you override these settings v
 
 === Endpoints
 
+==== Categories
+
+Allows you to obtain the list of approved plugin categories. Example:
+
+[source,ruby]
+----
+client = TRMNL::API::Client.new
+client.categories
+
+# Success(
+#   [
+#     "analytics",
+#     "art",
+#     "calendar"
+#   ]
+# )
+----
+
 ==== Current Screen
 
 Allows you to obtain current screen being displayed for your device. You must supply your device's API token as the `token`. Example:
@@ -133,6 +151,29 @@ client = TRMNL::API::Client.new
 client.firmware
 
 # Success(#<data TRMNL::API::Models::Firmware url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin", version="1.4.8">)
+----
+
+==== IP Addresses
+
+Allows you obtain a list of public IP addresses for all TRMNL core servers because plugin poll requests will only originate from these IPs. Example:
+
+[source,ruby]
+----
+client = TRMNL::API::Client.new
+client.ip_addresses
+
+# Success(
+#   #<data TRMNL::API::Models::IPAddress
+#     version_4=[
+#       #<IPAddr: IPv4:111.230.59.36/255.255.255.255>,
+#       #<IPAddr: IPv4:222.9.106.45/255.255.255.255>
+#     ],
+#     version_6=[
+#       #<IPAddr: IPv6:1:2:0400:00d0:0000:0000:1874:e001/ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff>,
+#       #<IPAddr: IPv6:1:2:0400:00d1:0000:0001:705e:1001/ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff>
+#     ]
+#   >
+# )
 ----
 
 ==== Log
@@ -188,6 +229,7 @@ client.models
 #     name="test",
 #     label="Test",
 #     description="A test.",
+#     kind="trmnl",
 #     colors=2,
 #     bit_depth=1,
 #     scale_factor=1,
@@ -197,12 +239,65 @@ client.models
 #     height=480,
 #     offset_x=10,
 #     offset_y=15,
-#     published_at="2025-07-16T18:18:11+00:00"
+#     palette_ids=["bw"],
+#     css: {
+#       classes: {
+#         device: "screen--og_png",
+#         size: "screen--md"
+#       },
+#       variables: [
+#         [
+#           "--screen-w",
+#           "800px"
+#         ],
+#         [
+#           "--screen-h",
+#           "480px"
+#         ],
+#         [
+#           "--ui-scale",
+#           "1.0"
+#         ],
+#         [
+#           "--gap-scale",
+#           "1.0"
+#         ]
+#       ]
+#     }
 #   >
 # )
 ----
 
 ℹ️ The `scale_factor` can be an integer or float.
+
+==== Palettes
+
+Allows you to obtain palettes details. The IDs correlate to the `palette_ids` as found in the Models API. Example:
+
+[source,ruby]
+----
+client = TRMNL::API::Client.new
+client.palettes
+
+Success(
+  [
+    #<data TRMNL::API::Models::Palette
+      id="bw",
+      name="Black & White (1-bit)",
+      grays=2,
+      colors=nil,
+      framework_class="screen--1bit"
+    >,
+    #<data TRMNL::API::Models::Palette
+      id="color-24bit",
+      name="Color (24-bit)",
+      grays=nil,
+      colors=nil,
+      framework_class=""
+    >
+  ]
+)
+----
 
 ==== Setup
 
