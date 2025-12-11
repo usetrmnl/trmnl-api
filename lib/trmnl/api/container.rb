@@ -26,6 +26,7 @@ module TRMNL
         register :firmware, Contracts::Firmware
         register :ip_address, Contracts::IPAddress
         register :model, Contracts::Model
+        register :palette, Contracts::Palette
         register :setup, Contracts::Setup
       end
 
