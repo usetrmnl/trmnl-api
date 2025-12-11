@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+module TRMNL
+  module API
+    module Models
+      # IPs API response.
+      Palette = Data.define :id, :name, :grays, :colors, :framework_class do
+        def self.for(attributes) = new(**attributes)
+      end
+    end
+  end
+end

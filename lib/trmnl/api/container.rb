@@ -36,6 +36,7 @@ module TRMNL
         register :firmware, Models::Firmware
         register :ip_address, Models::IPAddress
         register :model, Models::Model
+        register :palette, Models::Palette
         register :setup, Models::Setup
       end
     end
