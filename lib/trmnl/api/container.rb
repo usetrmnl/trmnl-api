@@ -33,6 +33,7 @@ module TRMNL
         register :current_screen, Models::CurrentScreen
         register :display, Models::Display
         register :firmware, Models::Firmware
+        register :ip_address, Models::IPAddress
         register :model, Models::Model
         register :setup, Models::Setup
       end
