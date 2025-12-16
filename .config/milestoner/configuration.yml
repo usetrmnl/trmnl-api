@@ -1,0 +1,21 @@
+organization:
+  label: "TRMNL"
+  uri: "https://usetrmnl.com"
+profile:
+  uri: "https://github.com/%<id>s"
+project:
+  owner: "usetrmnl"
+  uri:
+    icon: "%<organization_uri>s/favicon.ico"
+    logo: "http://trmnl-oss.s3-website.us-east-2.amazonaws.com/api/logo.png"
+syndication:
+  id: "%<project_uri_version>s"
+  links:
+    - label: "%<organization_label>s: %<project_label>s (web)"
+      mime: "text/html"
+      relation: "alternate"
+      uri: "%<project_uri_home>s/versions"
+    - label: "%<organization_label>s: %<project_label>s (feed)"
+      mime: "application/atom+xml"
+      relation: "self"
+      uri: "%<project_uri_home>s/versions.xml"
