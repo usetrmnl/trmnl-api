@@ -14,7 +14,7 @@ module TRMNL
           model: "models.display"
         ]
 
-        include Inspectable[contract: :class]
+        include Inspectable[contract: :type]
         include Pipeable
 
         def call token:

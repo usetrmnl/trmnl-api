@@ -21,15 +21,15 @@ module TRMNL
       ]
 
       include Inspectable[
-        endpoint_categories: :class,
-        endpoint_current_screen: :class,
-        endpoint_display: :class,
-        endpoint_firmware: :class,
-        endpoint_ip_addresses: :class,
-        endpoint_log: :class,
-        endpoint_models: :class,
-        endpoint_palettes: :class,
-        endpoint_setup: :class
+        endpoint_categories: :type,
+        endpoint_current_screen: :type,
+        endpoint_display: :type,
+        endpoint_firmware: :type,
+        endpoint_ip_addresses: :type,
+        endpoint_log: :type,
+        endpoint_models: :type,
+        endpoint_palettes: :type,
+        endpoint_setup: :type
       ]
 
       def initialize(**)

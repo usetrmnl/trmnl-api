@@ -10,7 +10,7 @@ module TRMNL
       class Category
         include TRMNL::API::Dependencies[:requester, contract: "contracts.category"]
 
-        include Inspectable[contract: :class]
+        include Inspectable[contract: :type]
         include Pipeable
 
         def call

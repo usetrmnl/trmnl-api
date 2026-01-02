@@ -17,6 +17,7 @@ Bundler.require :tools
 
 require "dry/monads"
 require "http/fake"
+require "inspectable/rspec/matchers/match_inspection"
 require "refinements"
 require "trmnl/api"
 
@@ -25,7 +26,6 @@ SPEC_ROOT = Pathname(__dir__).realpath.freeze
 using Refinements::Pathname
 
 Pathname.require_tree SPEC_ROOT.join("support/shared_contexts")
-Pathname.require_tree SPEC_ROOT.join("support/shared_examples")
 
 RSpec.configure do |config|
   config.color = true

@@ -14,7 +14,7 @@ module TRMNL
           model: "models.setup"
         ]
 
-        include Inspectable[contract: :class]
+        include Inspectable[contract: :type]
         include Pipeable
 
         def call id:

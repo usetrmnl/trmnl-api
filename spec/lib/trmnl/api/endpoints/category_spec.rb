@@ -58,6 +58,8 @@ RSpec.describe TRMNL::API::Endpoints::Category do
   end
 
   describe "#inspect" do
-    it_behaves_like "an inspectable endpoint", described_class.new
+    it "has inspected attributes" do
+      expect(described_class.new.inspect).to match_inspection(contract: "Dry::Schema::JSON")
+    end
   end
 end
