@@ -17,6 +17,7 @@ module TRMNL
         endpoint_log: :log,
         endpoint_models: :models,
         endpoint_palettes: :palettes,
+        endpoint_recipes: :recipes,
         endpoint_setup: :setup
       ]
 
@@ -29,6 +30,7 @@ module TRMNL
         endpoint_log: :type,
         endpoint_models: :type,
         endpoint_palettes: :type,
+        endpoint_recipes: :type,
         endpoint_setup: :type
       ]
 
@@ -52,6 +54,8 @@ module TRMNL
       def models(**) = endpoint_models.call(**)
 
       def palettes = endpoint_palettes.call
+
+      def recipes(**) = endpoint_recipes.call(**)
 
       def setup(**) = endpoint_setup.call(**)
     end
