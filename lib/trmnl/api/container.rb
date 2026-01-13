@@ -38,6 +38,7 @@ module TRMNL
         register :ip_address, Models::IPAddress
         register :model, Models::Model
         register :palette, Models::Palette
+        register :recipe, Models::Recipe
         register :setup, Models::Setup
       end
     end
