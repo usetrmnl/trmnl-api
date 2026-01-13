@@ -3,7 +3,7 @@
 module TRMNL
   module API
     module Models
-      # IPs API response.
+      # Models the data of the API response.
       Palette = Data.define :id, :name, :grays, :colors, :framework_class do
         def self.for(attributes) = new(**attributes)
       end

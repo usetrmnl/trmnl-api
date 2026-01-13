@@ -3,7 +3,7 @@
 module TRMNL
   module API
     module Models
-      # IPs API response.
+      # Models the data of the API response.
       IPAddress = Data.define :version_4, :version_6 do
         def self.for attributes
           new(**attributes.transform_keys(ipv4: :version_4, ipv6: :version_6))

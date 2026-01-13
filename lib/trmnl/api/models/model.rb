@@ -3,7 +3,7 @@
 module TRMNL
   module API
     module Models
-      # Models data for API display responses.
+      # Models the data of the API response.
       Model = Struct.new(
         :name,
         :label,
