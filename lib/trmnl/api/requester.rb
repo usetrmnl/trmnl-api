@@ -23,18 +23,20 @@ module TRMNL
 
       private
 
-      attr_reader :settings, :http
-
       def call method, path, headers, **options
         http.headers(settings.headers.merge(headers))
             .public_send(method, uri(path), options)
             .then { |response| response.status.success? ? Success(response) : Failure(response) }
+      rescue HTTP::RequestError => error then handle_bad_request path, error
       rescue HTTP::ConnectionError => error then handle_bad_connection path, error
       rescue HTTP::TimeoutError => error then handle_timeout path, error
       rescue OpenSSL::SSL::SSLError => error then handle_bad_ssl path, error
       end
 
-      def uri(path) = "#{settings.uri}/#{path}"
+      def handle_bad_request path, error
+        logger.debug { error.message }
+        Failure "Unable to make request: #{uri(path).inspect}. Is the URI valid?"
+      end
 
       def handle_bad_connection path, error
         logger.debug { error.message }
@@ -51,6 +53,8 @@ module TRMNL
         Failure "Unable to secure connection: #{uri(path).inspect}. " \
                 "Is your certificate or SSL valid?"
       end
+
+      def uri(path) = "#{settings.uri}/#{path}"
     end
   end
 end

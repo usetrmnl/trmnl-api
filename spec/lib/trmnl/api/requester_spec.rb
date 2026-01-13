@@ -93,6 +93,26 @@ RSpec.describe TRMNL::API::Requester do
       end
     end
 
+    context "with request failure" do
+      let :http do
+        class_spy(HTTP).tap do |spy|
+          allow(spy).to receive(:headers).and_raise HTTP::RequestError, "Danger!"
+        end
+      end
+
+      it "logs debug message" do
+        requester.get "current_screen"
+        expect(logger.reread).to match(/🔎.+Danger!/)
+      end
+
+      it "answers failure" do
+        expect(requester.get("current_screen")).to be_failure(
+          %(Unable to make request: "https://trmnl.app/api/current_screen". ) \
+          "Is the URI valid?"
+        )
+      end
+    end
+
     context "with connection failure" do
       let :http do
         class_spy(HTTP).tap do |spy|
