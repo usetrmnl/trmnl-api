@@ -3,17 +3,18 @@
 :figure-caption!:
 
 :trmnl_link: link:https://usetrmnl.com[TRMNL]
+:trmnl_api_link: link:https://usetrmnl.com/api-docs/index.html[TRMNL API]
 :dry_monads_link: link:https://dry-rb.org/gems/dry-monads[Dry Monads]
 
 = TRMNL API
 
-A monadic {trmnl_link} API client. You can use this client in your own code to interact with our APIs for any/all devices that you own.
+A monadic {trmnl_api_link} client. You can use this client in your own code to interact with our APIs for any/all devices that you own.
 
 toc::[]
 
 == Features
 
-* Provides {trmnl_link} API access.
+* Provides {trmnl_api_link} access.
 
 == Requirements
 
@@ -48,7 +49,7 @@ require "trmnl/api"
 This client provides access to multiple endpoints. Each endpoint will answer either a `Success` or `Failure` (as provided by {dry_monads_link}) based on result of the API call. This allows you pattern match in your own code when using each endpoint. Example:
 
 ``` ruby
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 
 case client.display token: "secret"
   in Success(payload) then puts payload
@@ -65,7 +66,7 @@ By default, you shouldn't need to change the default configuration but you can a
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new do |settings|
+client = TRMNL::API.new do |settings|
   settings.content_type = "application/json",
   settings.uri = "https://trmnl.app/api"
 end
@@ -88,7 +89,7 @@ Allows you to obtain the list of approved plugin categories. Example:
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 client.categories
 
 # Success(
@@ -106,7 +107,7 @@ Allows you to obtain current screen being displayed for your device. You must su
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 client.current_screen token: "secret"
 
 # Success(
@@ -124,7 +125,7 @@ Allows you to obtain current screen being displayed for your device with additio
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 client.display token: "secret"
 
 # Success(
@@ -147,7 +148,7 @@ Allows you to obtain the current stable firmware version. Example:
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 client.firmware
 
 # Success(#<data TRMNL::API::Models::Firmware url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin", version="1.4.8">)
@@ -159,7 +160,7 @@ Allows you obtain a list of public IP addresses for all TRMNL core servers becau
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 client.ip_addresses
 
 # Success(
@@ -182,7 +183,7 @@ Allows you to create a log entry (which is what the device reports when it captu
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 client.log token: "secret",
             log: {
               logs_array: [
@@ -221,7 +222,7 @@ Allows you to obtain the model information for all devices and screens. Example:
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 client.models
 
 # Success(
@@ -276,7 +277,7 @@ Allows you to obtain palettes details. The IDs correlate to the `palette_ids` as
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 client.palettes
 
 Success(
@@ -299,13 +300,94 @@ Success(
 )
 ----
 
+==== Recipes
+
+Allows you to obtain information about link:https://usetrmnl.com/recipes[Recipes]. Example:
+
+⚠️ This _does not_ use the {trmnl_api_link} like every other endpoint documented here. This is why you must customize the settings URI to point to the root of the TRMNL application instead of using the default API endpoint.
+
+[source,ruby]
+----
+client = TRMNL::API.new { |settings| settings.uri = "https://usetrmnl.com" }
+
+client.recipes                          # Answers first page.
+client.recipes page: 10                 # Answers page ten.
+client.recipes search: "comic"          # Answers first page of comics.
+client.recipes "sort-by": "popularity"  # Answers first page sorted by popularity.
+
+# Success(
+#   #<data TRMNL::API::Models::Recipe:0x0000b4d0
+#     current_page = 1,
+#     data = [
+#       #<Struct:TRMNL::API::Models::Recipes::Entry:0x0000b4f0
+#         author = #<Struct:TRMNL::API::Models::Recipes::Author:0x0000b500
+#           category = "travel",
+#           description = "Displays upcoming...",
+#           description_locales = {},
+#           email_address = nil,
+#           field_type = "author_bio",
+#           github_url = "https://github.com/CaptainProton42/trmnl-bustimes-org",
+#           keyname = "readme",
+#           learn_more_url = nil,
+#           name = "About This Plugin",
+#           youtube_url = nil
+#         >,
+#         custom_fields = [
+#           {
+#                 "keyname" => "readme",
+#                    "name" => "About This Plugin",
+#                "category" => "travel",
+#              "field_type" => "author_bio",
+#             "description" => "Displays upcoming...",
+#              "github_url" => "https://github.com/CaptainProton42/trmnl-bustimes-org"
+#           },
+#           {
+#                 "keyname" => "atco",
+#              "field_type" => "string",
+#                    "name" => "Bus Stop",
+#             "description" => "The <a href=\"https://mullinscr.github.io/naptan/atco_codes/\">ATCO</a> code for your bus stop.",
+#               "help_text" => "You can find this..."
+#           },
+#           {
+#                 "keyname" => "bus",
+#              "field_type" => "multi_string",
+#                    "name" => "Busses",
+#             "description" => "Optionally, choose specific bus services you want to display departures for.",
+#               "help_text" => "Use the name of the service, e.g. '10' or '3A'.",
+#                "optional" => true
+#           }
+#         ],
+#         icon_content_type = "image/png",
+#         icon_url = "https://trmnl-public.s3.us-east-2.amazonaws.com/59lqujqwid1cvzsd7sr3erfuexur",
+#         id = 222328,
+#         name = "UK Bus Departures (bustimes.org)",
+#         published_at = 2026-01-14 22:53:07.587 UTC,
+#         screenshot_url = "https://trmnl.s3.us-east-2.amazonaws.com...",
+#         statistics = #<data TRMNL::API::Models::Recipes::Statistics:0x0000b710
+#           forks = 0,
+#           installs = 1
+#         >
+#       >
+#     ],
+#     from = 1,
+#     next_page_url = "/recipes.json?page=2",
+#     per_page = 25,
+#     prev_page_url = nil,
+#     to = 25,
+#     total = 658
+#   >
+# )
+----
+
+You'll always get a `data` array with may or may not be filled. Pagination information is listed at the bottom.
+
 ==== Setup
 
 Allows you to obtain the setup response for when a new device is setup. You must supply your device's MAC Address as the `id`. Example:
 
 [source,ruby]
 ----
-client = TRMNL::API::Client.new
+client = TRMNL::API.new
 client.setup id: "A1:B2:C3:D4:E5:F6"
 
 # Success(
