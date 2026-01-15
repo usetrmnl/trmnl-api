@@ -3,11 +3,13 @@
 require "spec_helper"
 
 RSpec.describe TRMNL::API::Client do
-  subject(:client) { described_class.new }
+  subject(:client) { described_class.new endpoints: }
 
   include_context "with application dependencies"
 
   describe "#initialize" do
+    subject(:client) { described_class.new }
+
     it "answers original settings without block" do
       client
 
@@ -32,108 +34,111 @@ RSpec.describe TRMNL::API::Client do
   end
 
   describe "#categories" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Category }
+    let(:endpoints) { {categories: class_double(TRMNL::API::Endpoints::Category, new: instance)} }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Category }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_categories: endpoint
-      expect(client.categories).to have_received(:call)
+      client.categories
+      expect(instance).to have_received(:call)
     end
   end
 
   describe "#current_screen" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::CurrentScreen }
+    let :endpoints do
+      {current_screen: class_double(TRMNL::API::Endpoints::CurrentScreen, new: instance)}
+    end
+
+    let(:instance) { instance_spy TRMNL::API::Endpoints::CurrentScreen }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_current_screen: endpoint
-      expect(client.current_screen(token: "abc")).to have_received(:call).with(token: "abc")
+      client.current_screen token: "abc"
+      expect(instance).to have_received(:call).with(token: "abc")
     end
   end
 
   describe "#display" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Display }
+    let(:endpoints) { {display: class_double(TRMNL::API::Endpoints::Display, new: instance)} }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Display }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_display: endpoint
-      expect(client.display(token: "abc")).to have_received(:call).with(token: "abc")
+      client.display token: "abc"
+      expect(instance).to have_received(:call).with(token: "abc")
     end
   end
 
   describe "#firmware" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Firmware }
+    let(:endpoints) { {firmware: class_double(TRMNL::API::Endpoints::Firmware, new: instance)} }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Firmware }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_firmware: endpoint
-      expect(client.firmware).to have_received(:call)
+      client.firmware
+      expect(instance).to have_received(:call)
     end
   end
 
   describe "#ip_addresses" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::IPAddress }
+    let(:endpoints) { {ip_addresses: class_double(TRMNL::API::Endpoints::IPAddress, new: instance)} }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::IPAddress }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_ip_addresses: endpoint
-      expect(client.ip_addresses).to have_received(:call)
+      client.ip_addresses
+      expect(instance).to have_received(:call)
     end
   end
 
   describe "#log" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Log }
+    let(:endpoints) { {log: class_double(TRMNL::API::Endpoints::Log, new: instance)} }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Log }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_log: endpoint
-      expect(client.log(token: "abc", log: {})).to have_received(:call).with(token: "abc", log: {})
+      client.log token: "abc", log: {}
+      expect(instance).to have_received(:call).with(token: "abc", log: {})
     end
   end
 
   describe "#models" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Model }
+    let(:endpoints) { {models: class_double(TRMNL::API::Endpoints::Model, new: instance)} }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Model }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_models: endpoint
-      expect(client.models).to have_received(:call).with(no_args)
+      client.models
+      expect(instance).to have_received(:call).with(no_args)
     end
   end
 
   describe "#palette" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Palette }
+    let(:endpoints) { {palettes: class_double(TRMNL::API::Endpoints::Palette, new: instance)} }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Palette }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_palettes: endpoint
-      expect(client.palettes).to have_received(:call).with(no_args)
+      client.palettes
+      expect(instance).to have_received(:call).with(no_args)
     end
   end
 
   describe "#recipe" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Recipe }
+    let(:endpoints) { {recipes: class_double(TRMNL::API::Endpoints::Recipe, new: instance)} }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Recipe }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_recipes: endpoint
-      expect(client.recipes).to have_received(:call).with(no_args)
+      client.recipes
+      expect(instance).to have_received(:call).with(no_args)
     end
   end
 
   describe "#setup" do
-    let(:endpoint) { instance_spy TRMNL::API::Endpoints::Setup }
+    let(:endpoints) { {setup: class_double(TRMNL::API::Endpoints::Setup, new: instance)} }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Setup }
 
     it "messages endpoint" do
-      client = described_class.new endpoint_setup: endpoint
-      expect(client.setup(id: "abc")).to have_received(:call).with(id: "abc")
+      client.setup id: "abc"
+      expect(instance).to have_received(:call).with(id: "abc")
     end
   end
 
   describe "#inspect" do
     it "has inspected attributes" do
-      expect(described_class.new.inspect).to match_inspection(
-        endpoint_current_screen: "TRMNL::API::Endpoints::CurrentScreen",
-        endpoint_display: "TRMNL::API::Endpoints::Display",
-        endpoint_firmware: "TRMNL::API::Endpoints::Firmware",
-        endpoint_ip_addresses: "TRMNL::API::Endpoints::IPAddress",
-        endpoint_log: "TRMNL::API::Endpoints::Log",
-        endpoint_models: "TRMNL::API::Endpoints::Model",
-        endpoint_palettes: "TRMNL::API::Endpoints::Palette",
-        endpoint_recipes: "TRMNL::API::Endpoints::Recipe",
-        endpoint_setup: "TRMNL::API::Endpoints::Setup"
-      )
+      expect(described_class.new.inspect).to match_inspection({})
     end
   end
 end

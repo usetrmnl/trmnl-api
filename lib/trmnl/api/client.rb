@@ -7,57 +7,56 @@ module TRMNL
     # Provides the primary client for making API requests.
     class Client
       include Dependencies[:settings]
+      include Inspectable[:endpoints]
 
-      include Endpoints::Dependencies[
-        endpoint_categories: :categories,
-        endpoint_current_screen: :current_screen,
-        endpoint_display: :display,
-        endpoint_firmware: :firmware,
-        endpoint_ip_addresses: :ip_addresses,
-        endpoint_log: :log,
-        endpoint_models: :models,
-        endpoint_palettes: :palettes,
-        endpoint_recipes: :recipes,
-        endpoint_setup: :setup
-      ]
+      ENDPOINTS = {
+        categories: Endpoints::Category,
+        current_screen: Endpoints::CurrentScreen,
+        display: Endpoints::Display,
+        firmware: Endpoints::Firmware,
+        ip_addresses: Endpoints::IPAddress,
+        log: Endpoints::Log,
+        models: Endpoints::Model,
+        palettes: Endpoints::Palette,
+        recipes: Endpoints::Recipe,
+        setup: Endpoints::Setup
+      }.freeze
 
-      include Inspectable[
-        endpoint_categories: :type,
-        endpoint_current_screen: :type,
-        endpoint_display: :type,
-        endpoint_firmware: :type,
-        endpoint_ip_addresses: :type,
-        endpoint_log: :type,
-        endpoint_models: :type,
-        endpoint_palettes: :type,
-        endpoint_recipes: :type,
-        endpoint_setup: :type
-      ]
+      def initialize(requester: Requester, endpoints: ENDPOINTS, **)
+        super(**)
 
-      def initialize(**)
-        super
         yield settings if block_given?
+
+        requester = requester.new(settings:)
+
+        @endpoints = endpoints.each.with_object({}) do |(key, value), all|
+          all[key] = value.new requester:
+        end
       end
 
-      def categories = endpoint_categories.call
+      def categories = endpoints.fetch(__method__).call
 
-      def current_screen(**) = endpoint_current_screen.call(**)
+      def current_screen(**) = endpoints.fetch(__method__).call(**)
 
-      def display(**) = endpoint_display.call(**)
+      def display(**) = endpoints.fetch(__method__).call(**)
 
-      def firmware = endpoint_firmware.call
+      def firmware = endpoints.fetch(__method__).call
 
-      def ip_addresses = endpoint_ip_addresses.call
+      def ip_addresses = endpoints.fetch(__method__).call
 
-      def log(**) = endpoint_log.call(**)
+      def log(**) = endpoints.fetch(__method__).call(**)
 
-      def models(**) = endpoint_models.call(**)
+      def models(**) = endpoints.fetch(__method__).call(**)
 
-      def palettes = endpoint_palettes.call
+      def palettes = endpoints.fetch(__method__).call
 
-      def recipes(**) = endpoint_recipes.call(**)
+      def recipes(**) = endpoints.fetch(__method__).call(**)
 
-      def setup(**) = endpoint_setup.call(**)
+      def setup(**) = endpoints.fetch(__method__).call(**)
+
+      private
+
+      attr_reader :endpoints
     end
   end
 end
