@@ -3,6 +3,7 @@ inherit_gem:
 
 Metrics/ParameterLists:
   Exclude:
+    - lib/trmnl/api/models/recipes/meta.rb
     - lib/trmnl/api/requester.rb
 Naming/VariableNumber:
   Exclude:
