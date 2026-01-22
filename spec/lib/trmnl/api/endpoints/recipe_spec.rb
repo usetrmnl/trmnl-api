@@ -73,13 +73,15 @@ RSpec.describe TRMNL::API::Endpoints::Recipe do
                 statistics: TRMNL::API::Models::Recipes::Statistics[installs: 1, forks: 2]
               ]
             ],
-            total: 2,
-            from: 1,
-            to: 2,
-            per_page: 25,
-            current_page: 1,
-            prev_page_url: nil,
-            next_page_url: "/recipes.json?page=2"
+            meta: TRMNL::API::Models::Recipes::Meta[
+              total: 2,
+              from: 1,
+              to: 2,
+              per_page: 25,
+              current_page: 1,
+              prev_page_url: nil,
+              next_page_url: "/recipes.json?page=2"
+            ]
           ]
         )
       end

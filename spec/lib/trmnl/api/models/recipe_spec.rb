@@ -3,6 +3,21 @@
 require "spec_helper"
 
 RSpec.describe TRMNL::API::Models::Recipe do
+  subject(:recipe) { described_class[**attributes] }
+
+  let :attributes do
+    {
+      data: [],
+      from: 1,
+      to: 25,
+      per_page: 25,
+      current_page: 1,
+      total: 200,
+      prev_page_url: nil,
+      next_page_url: "/recipes.json?page=2"
+    }
+  end
+
   describe ".for" do
     let :attributes do
       {
@@ -38,11 +53,12 @@ RSpec.describe TRMNL::API::Models::Recipe do
             }
           }
         ],
-        total: 100,
+
         from: 1,
         to: 25,
         per_page: 25,
         current_page: 1,
+        total: 100,
         prev_page_url: nil,
         next_page_url: "/recipes.json?page=2"
       }
@@ -81,13 +97,15 @@ RSpec.describe TRMNL::API::Models::Recipe do
               statistics: TRMNL::API::Models::Recipes::Statistics[installs: 6, forks: 0]
             ]
           ],
-          total: 100,
-          from: 1,
-          to: 25,
-          per_page: 25,
-          current_page: 1,
-          prev_page_url: nil,
-          next_page_url: "/recipes.json?page=2"
+          meta: TRMNL::API::Models::Recipes::Meta[
+            from: 1,
+            to: 25,
+            per_page: 25,
+            current_page: 1,
+            total: 100,
+            prev_page_url: nil,
+            next_page_url: "/recipes.json?page=2"
+          ]
         ]
       )
     end
