@@ -2,6 +2,7 @@
 
 require "inspectable"
 require "pipeable"
+require "refinements/hash"
 
 module TRMNL
   module API
@@ -17,9 +18,13 @@ module TRMNL
         include Inspectable[contract: :type]
         include Pipeable
 
-        def call(**)
+        using Refinements::Hash
+
+        def call(**parameters)
+          parameters.transform_keys! sort: "sort-by"
+
           pipe(
-            requester.get("recipes.json", **),
+            requester.get("recipes.json", **parameters),
             try(:parse, catch: JSON::ParserError),
             validate(contract, as: :to_h),
             to(model, :for)
