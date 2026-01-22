@@ -4,7 +4,7 @@ module TRMNL
   module API
     module Models
       # Models the data of the API response.
-      Recipe = Data.define(
+      Recipe = ::Data.define(
         :data,
         :total,
         :from,
