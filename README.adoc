@@ -304,82 +304,81 @@ Success(
 
 Allows you to obtain information about link:https://usetrmnl.com/recipes[Recipes]. Example:
 
-⚠️ This _does not_ use the {trmnl_api_link} like every other endpoint documented here. This is why you must customize the settings URI to point to the root of the TRMNL application instead of using the default API endpoint.
-
 [source,ruby]
 ----
 client = TRMNL::API.new { |settings| settings.uri = "https://usetrmnl.com" }
 
-client.recipes                          # Answers first page.
-client.recipes page: 10                 # Answers page ten.
-client.recipes search: "comic"          # Answers first page of comics.
-client.recipes "sort-by": "popularity"  # Answers first page sorted by popularity.
+client.recipes                     # Answers first page.
+client.recipes page: 10            # Answers page ten.
+client.recipes search: "comic"     # Answers first page of comics.
+client.recipes sort: "popularity"  # Answers first page sorted by popularity.
 
 # Success(
-#   #<data TRMNL::API::Models::Recipe:0x0000b4d0
-#     current_page = 1,
-#     data = [
-#       #<Struct:TRMNL::API::Models::Recipes::Entry:0x0000b4f0
-#         author = #<Struct:TRMNL::API::Models::Recipes::Author:0x0000b500
-#           category = "travel",
-#           description = "Displays upcoming...",
-#           description_locales = {},
-#           email_address = nil,
-#           field_type = "author_bio",
-#           github_url = "https://github.com/CaptainProton42/trmnl-bustimes-org",
-#           keyname = "readme",
-#           learn_more_url = nil,
-#           name = "About This Plugin",
-#           youtube_url = nil
-#         >,
-#         custom_fields = [
-#           {
-#                 "keyname" => "readme",
-#                    "name" => "About This Plugin",
-#                "category" => "travel",
-#              "field_type" => "author_bio",
-#             "description" => "Displays upcoming...",
-#              "github_url" => "https://github.com/CaptainProton42/trmnl-bustimes-org"
-#           },
-#           {
-#                 "keyname" => "atco",
-#              "field_type" => "string",
-#                    "name" => "Bus Stop",
-#             "description" => "The <a href=\"https://mullinscr.github.io/naptan/atco_codes/\">ATCO</a> code for your bus stop.",
-#               "help_text" => "You can find this..."
-#           },
-#           {
-#                 "keyname" => "bus",
-#              "field_type" => "multi_string",
-#                    "name" => "Busses",
-#             "description" => "Optionally, choose specific bus services you want to display departures for.",
-#               "help_text" => "Use the name of the service, e.g. '10' or '3A'.",
-#                "optional" => true
-#           }
-#         ],
-#         icon_content_type = "image/png",
-#         icon_url = "https://trmnl-public.s3.us-east-2.amazonaws.com/59lqujqwid1cvzsd7sr3erfuexur",
-#         id = 222328,
-#         name = "UK Bus Departures (bustimes.org)",
-#         published_at = 2026-01-14 22:53:07.587 UTC,
-#         screenshot_url = "https://trmnl.s3.us-east-2.amazonaws.com...",
-#         statistics = #<data TRMNL::API::Models::Recipes::Statistics:0x0000b710
-#           forks = 0,
-#           installs = 1
-#         >
-#       >
-#     ],
-#     from = 1,
-#     next_page_url = "/recipes.json?page=2",
-#     per_page = 25,
-#     prev_page_url = nil,
-#     to = 25,
-#     total = 658
-#   >
+#  #<data TRMNL::API::Models::Recipe:0x00010fc0
+#    data = [
+#      #<Struct:TRMNL::API::Models::Recipes::Data:0x00010fe0
+#        author = #<Struct:TRMNL::API::Models::Recipes::Author:0x00010ff0
+#          category = nil,
+#          description = nil,
+#          description_locales = {},
+#          email_address = nil,
+#          field_type = nil,
+#          github_url = nil,
+#          keyname = nil,
+#          learn_more_url = nil,
+#          name = nil,
+#          youtube_url = nil
+#        >,
+#        custom_fields = [
+#          {
+#                "keyname" => "user_location",
+#             "field_type" => "string",
+#                   "name" => "Weather Location",
+#            "placeholder" => "New York, NY",
+#            "description" => "Choose a location",
+#              "help_text" => "Please be precise...",
+#               "required" => true
+#          },
+#          {
+#                "keyname" => "metric",
+#                   "name" => "Temperature Metric",
+#            "description" => "Celsius or Fahrenheit?",
+#             "field_type" => "select",
+#                "options" => [
+#              "Fahrenheit",
+#              "Celsius"
+#            ],
+#                "default" => "Fahrenheit"
+#          }
+#        ],
+#        icon_content_type = "image/png",
+#        icon_url = "https://trmnl-public.s3.us-east-2.amazonaws.com/ajjlbek4cabcvhk3s1lxggn8cgon",
+#        id = 49610,
+#        name = "Weather Chum",
+#        published_at = 2025-05-14 05:32:00 UTC,
+#        screenshot_url = "https://trmnl.s3.us-east-2.amazonaws.com...",
+#        statistics = #<data TRMNL::API::Models::Recipes::Statistics:0x00011170
+#          forks = 1710,
+#          installs = 1
+#        >
+#      >
+#    ],
+#    meta = #<data TRMNL::API::Models::Recipes::Meta:0x00016e20
+#      current_page = 1,
+#      from = 1,
+#      next_page_url = "/recipes.json?page=2&sort_by=popularity",
+#      per_page = 25,
+#      prev_page_url = nil,
+#      to = 25,
+#      total = 678
+#    >
+#  >
 # )
 ----
 
-You'll always get a `data` array with may or may not be filled. Pagination information is listed at the bottom.
+⚠️ This _does not_ use the {trmnl_api_link} like every other endpoint documented here. Instead, you must customize the settings URI to point to the root of the TRMNL application (i.e. `https://usetrmnl.com`) instead of using the default API endpoint.
+
+You'll always get a `data` array which may or may not be filled and `meta` (metadata) for handling pagination information. You can also combine the `page`, `search`, and `page` parameters as you see fit.
 
 ==== Setup
 
