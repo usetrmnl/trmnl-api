@@ -15,7 +15,7 @@ module TRMNL
         :next_page_url
       ) do
         def self.for(**attributes)
-          data = attributes[:data].map { Recipes::Entry.for(**it) }
+          data = attributes[:data].map { Recipes::Data.for(**it) }
           new(**attributes.merge!(data:))
         end
       end

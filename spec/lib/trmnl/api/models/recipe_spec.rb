@@ -52,7 +52,7 @@ RSpec.describe TRMNL::API::Models::Recipe do
       expect(described_class.for(**attributes)).to eq(
         described_class[
           data: [
-            TRMNL::API::Models::Recipes::Entry[
+            TRMNL::API::Models::Recipes::Data[
               id: 1,
               name: "Test",
               published_at: "2026-01-13T13:00:32.349Z",

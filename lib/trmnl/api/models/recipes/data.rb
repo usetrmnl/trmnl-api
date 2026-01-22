@@ -5,7 +5,7 @@ module TRMNL
     module Models
       module Recipes
         # Models the data of the API response.
-        Entry = Struct.new(
+        Data = Struct.new(
           :id,
           :name,
           :icon_url,

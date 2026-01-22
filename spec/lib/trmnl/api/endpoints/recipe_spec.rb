@@ -58,7 +58,7 @@ RSpec.describe TRMNL::API::Endpoints::Recipe do
         expect(endpoint.call.success).to match(
           TRMNL::API::Models::Recipe[
             data: [
-              TRMNL::API::Models::Recipes::Entry[
+              TRMNL::API::Models::Recipes::Data[
                 id: 1,
                 name: "test",
                 published_at: Time.parse("2026-01-02T03:04:05.000Z"),
