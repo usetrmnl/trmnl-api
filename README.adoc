@@ -132,6 +132,7 @@ client.display token: "secret"
 #   #<struct TRMNL::API::Models::Display
 #     filename="plugin-1745348489",
 #     firmware_url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin",
+#     firmware_version="1.4.8",
 #     image_url="https://trmnl.s3.us-east-2.amazonaws.com/plugin-1745348489",
 #     image_url_timeout=0,
 #     refresh_rate=1771,
