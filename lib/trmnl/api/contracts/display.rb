@@ -9,6 +9,7 @@ module TRMNL
       Display = Dry::Schema.JSON do
         required(:filename).filled :string
         required(:firmware_url).filled :string
+        optional(:firmware_version).maybe :string
         required(:image_url).filled :string
         required(:refresh_rate).filled :integer
         required(:reset_firmware).filled :bool

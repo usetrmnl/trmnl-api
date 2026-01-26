@@ -10,6 +10,7 @@ RSpec.describe TRMNL::API::Models::Display do
       {
         filename: "test.bmp",
         firmware_url: "https://test.io/FW1.4.8.bin",
+        firmware_version: "1.4.8",
         image_url: "https://test.io/images/test.bmp",
         refresh_rate: 3200,
         reset_firmware: false,
@@ -28,6 +29,7 @@ RSpec.describe TRMNL::API::Models::Display do
       expect(model.to_h).to eq(
         filename: nil,
         firmware_url: nil,
+        firmware_version: nil,
         image_url: nil,
         image_url_timeout: 0,
         refresh_rate: 300,
@@ -49,6 +51,7 @@ RSpec.describe TRMNL::API::Models::Display do
       expect(payload).to eq(
         filename: nil,
         firmware_url: nil,
+        firmware_version: nil,
         image_url: nil,
         image_url_timeout: 0,
         refresh_rate: 300,

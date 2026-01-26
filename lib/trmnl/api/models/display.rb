@@ -7,6 +7,7 @@ module TRMNL
       Display = Struct.new(
         :filename,
         :firmware_url,
+        :firmware_version,
         :image_url,
         :image_url_timeout,
         :refresh_rate,
