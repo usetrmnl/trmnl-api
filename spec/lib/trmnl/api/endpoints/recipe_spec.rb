@@ -9,7 +9,7 @@ RSpec.describe TRMNL::API::Endpoints::Recipe do
 
   let :requester do
     TRMNL::API::Requester.new http: do |settings|
-      settings.uri = "https://usetrmnl.com"
+      settings.uri = "https://trmnl.com"
     end
   end
 

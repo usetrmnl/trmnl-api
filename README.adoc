@@ -2,8 +2,8 @@
 :toclevels: 5
 :figure-caption!:
 
-:trmnl_link: link:https://usetrmnl.com[TRMNL]
-:trmnl_api_link: link:https://usetrmnl.com/api-docs/index.html[TRMNL API]
+:trmnl_link: link:https://trmnl.com[TRMNL]
+:trmnl_api_link: link:https://trmnl.com/api-docs/index.html[TRMNL API]
 :dry_monads_link: link:https://dry-rb.org/gems/dry-monads[Dry Monads]
 
 = TRMNL API
@@ -113,7 +113,7 @@ client.current_screen token: "secret"
 # Success(
 #   #<data TRMNL::API::Models::CurrentScreen
 #      refresh_rate=1773,
-#      image_url="https://usetrmnl.com/plugin-2025-04-10T11-34-38Z-380c77",
+#      image_url="https://trmnl.com/plugin-2025-04-10T11-34-38Z-380c77",
 #      filename="plugin-2025-04-10T11-34-38Z-380c77"
 #   >
 # )
@@ -302,11 +302,11 @@ Success(
 
 ==== Recipes
 
-Allows you to obtain information about link:https://usetrmnl.com/recipes[Recipes]. Example:
+Allows you to obtain information about link:https://trmnl.com/recipes[Recipes]. Example:
 
 [source,ruby]
 ----
-client = TRMNL::API.new { |settings| settings.uri = "https://usetrmnl.com" }
+client = TRMNL::API.new { |settings| settings.uri = "https://trmnl.com" }
 
 client.recipes                     # Answers first page.
 client.recipes page: 10            # Answers page ten.
@@ -376,7 +376,7 @@ client.recipes sort: "popularity"  # Answers first page sorted by popularity.
 # )
 ----
 
-⚠️ This _does not_ use the {trmnl_api_link} like every other endpoint documented here. Instead, you must customize the settings URI to point to the root of the TRMNL application (i.e. `https://usetrmnl.com`) instead of using the default API endpoint.
+⚠️ This _does not_ use the {trmnl_api_link} like every other endpoint documented here. Instead, you must customize the settings URI to point to the root of the TRMNL application (i.e. `https://trmnl.com`) instead of using the default API endpoint.
 
 You'll always get a `data` array which may or may not be filled and `meta` (metadata) for handling pagination information. You can also combine the `page`, `search`, and `page` parameters as you see fit.
 
@@ -393,7 +393,7 @@ client.setup id: "A1:B2:C3:D4:E5:F6"
 #   #<data TRMNL::API::Models::Setup
 #     api_key="secret",
 #     friendly_id="F51FDE",
-#     image_url="https://usetrmnl.com/images/setup/setup-logo.bmp",
+#     image_url="https://trmnl.com/images/setup/setup-logo.bmp",
 #     message="Register at usetrmnl.com/signup with Device ID 'F51FDE'"
 #   >
 # )
@@ -429,4 +429,4 @@ bin/rake
 == Credits
 
 * Built with link:https://alchemists.io/projects/gemsmith[Gemsmith].
-* Engineered by link:https://usetrmnl.com/developers[TRMNL].
+* Engineered by link:https://trmnl.com/developers[TRMNL].

@@ -21,7 +21,7 @@ RSpec.describe TRMNL::API::Endpoints::Setup do
               {
                 "api_key": "abc",
                 "friendly_id": "10CBAF",
-                "image_url": "https://usetrmnl.com/images/logo.bmp",
+                "image_url": "https://trmnl.com/images/logo.bmp",
                 "message": "Welcome!"
               }
             JSON
@@ -36,7 +36,7 @@ RSpec.describe TRMNL::API::Endpoints::Setup do
           TRMNL::API::Models::Setup[
             api_key: "abc",
             friendly_id: "10CBAF",
-            image_url: "https://usetrmnl.com/images/logo.bmp",
+            image_url: "https://trmnl.com/images/logo.bmp",
             message: "Welcome!"
           ]
         )

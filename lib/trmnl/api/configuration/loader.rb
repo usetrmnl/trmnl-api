@@ -13,7 +13,7 @@ module TRMNL
         def call
           model[
             content_type: environment.fetch("TRMNL_API_CONTENT_TYPE", "application/json"),
-            uri: environment.fetch("TRMNL_API_URI", "https://usetrmnl.com/api")
+            uri: environment.fetch("TRMNL_API_URI", "https://trmnl.com/api")
           ]
         end
 
