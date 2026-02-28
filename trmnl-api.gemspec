@@ -2,9 +2,9 @@
 
 Gem::Specification.new do |spec|
   spec.name = "trmnl-api"
-  spec.version = "0.11.0"
+  spec.version = "0.12.0"
   spec.authors = ["TRMNL"]
-  spec.email = ["engineering@usetrmnl.com"]
+  spec.email = ["engineering@trmnl.com"]
   spec.homepage = "https://github.com/usetrmnl/trmnl-api"
   spec.summary = "A monadic TRMNL API client."
   spec.license = "MIT"
