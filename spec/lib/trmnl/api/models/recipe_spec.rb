@@ -18,6 +18,14 @@ RSpec.describe TRMNL::API::Models::Recipe do
     }
   end
 
+  describe ".empty" do
+    it "answers empty record" do
+      expect(described_class.empty).to eq(
+        described_class[data: [], meta: TRMNL::API::Models::Recipes::Meta.new]
+      )
+    end
+  end
+
   describe ".for" do
     let :attributes do
       {
