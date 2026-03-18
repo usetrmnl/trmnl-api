@@ -10,6 +10,13 @@ module TRMNL
         using Refinements::Hash
 
         def self.for(attributes) = new(**attributes.transform_keys(name: :label, id: :name))
+
+        def initialize(**)
+          super
+          self[:grays] ||= 0
+          self[:colors] ||= []
+          freeze
+        end
       end
     end
   end
