@@ -39,8 +39,8 @@ RSpec.describe TRMNL::API::Endpoints::Palette do
       expect(result).to be_success(
         [
           TRMNL::API::Models::Palette[
-            id: "test",
-            name: "Test",
+            name: "test",
+            label: "Test",
             grays: 2,
             colors: %w[#000000 #FFFFFF],
             framework_class: "screen--1bit"

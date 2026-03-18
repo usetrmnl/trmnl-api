@@ -13,7 +13,15 @@ RSpec.describe TRMNL::API::Models::Palette do
         framework_class: "screen--1bit"
       }
 
-      expect(described_class.for(attributes)).to eq(described_class[**attributes])
+      expect(described_class.for(attributes)).to eq(
+        described_class[
+          name: "test",
+          label: "Test",
+          grays: 2,
+          colors: %w[#000000 #FFFFFF],
+          framework_class: "screen--1bit"
+        ]
+      )
     end
   end
 end

@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
+require "refinements/hash"
+
 module TRMNL
   module API
     module Models
       # Models the data of the API response.
-      Palette = Struct.new :id, :name, :grays, :colors, :framework_class do
-        def self.for(attributes) = new(**attributes)
+      Palette = Struct.new :name, :label, :grays, :colors, :framework_class do
+        using Refinements::Hash
+
+        def self.for(attributes) = new(**attributes.transform_keys(name: :label, id: :name))
       end
     end
   end
