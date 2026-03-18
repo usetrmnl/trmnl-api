@@ -76,8 +76,8 @@ end
 
 You can configure the client via the following environment variables:
 
-* `TRMNL_API_CONTENT_TYPE`: Defines the HTTP `Content-Type` header. You shouldn't need to change this but is here if you need it. Default: "application/json".
-* `TRMNL_API_URI`: Defines the API URI. Default: "https://trmnl.app/api".
+* `TRMNL_API_CONTENT_TYPE`: Defines the HTTP `Content-Type` header. You shouldn't need to change this but is here if you need it. Default: `"application/json"`.
+* `TRMNL_API_URI`: Defines the API URI. Default: `"https://trmnl.app/api"`.
 
 Any/all environment changes will be applied unless you override these settings via the client configuration block shown above.
 
@@ -227,46 +227,48 @@ client = TRMNL::API.new
 client.models
 
 # Success(
-#   #<data TRMNL::API::Models::Model
-#     name="test",
-#     label="Test",
-#     description="A test.",
-#     kind="trmnl",
-#     colors=2,
-#     bit_depth=1,
-#     scale_factor=1,
-#     rotation=90,
-#     mime_type="image/png",
-#     width=800,
-#     height=480,
-#     offset_x=10,
-#     offset_y=15,
-#     palette_ids=["bw"],
-#     css: {
-#       classes: {
-#         device: "screen--og_png",
-#         size: "screen--md"
-#       },
-#       variables: [
-#         [
-#           "--screen-w",
-#           "800px"
-#         ],
-#         [
-#           "--screen-h",
-#           "480px"
-#         ],
-#         [
-#           "--ui-scale",
-#           "1.0"
-#         ],
-#         [
-#           "--gap-scale",
-#           "1.0"
-#         ]
-#       ]
-#     }
-#   >
+#  [
+#    #<data TRMNL::API::Models::Model
+#      name="test",
+#      label="Test",
+#      description="A test.",
+#      kind="trmnl",
+#      colors=2,
+#      bit_depth=1,
+#      scale_factor=1,
+#      rotation=90,
+#      mime_type="image/png",
+#      width=800,
+#      height=480,
+#      offset_x=10,
+#      offset_y=15,
+#      palette_names=["bw"],
+#      css: {
+#        classes: {
+#          device: "screen--og_png",
+#          size: "screen--md"
+#        },
+#        variables: [
+#          [
+#            "--screen-w",
+#            "800px"
+#          ],
+#          [
+#            "--screen-h",
+#            "480px"
+#          ],
+#          [
+#            "--ui-scale",
+#            "1.0"
+#          ],
+#          [
+#            "--gap-scale",
+#            "1.0"
+#          ]
+#        ]
+#      }
+#    >
+#  ]
 # )
 ----
 
@@ -274,7 +276,7 @@ client.models
 
 ==== Palettes
 
-Allows you to obtain palettes details. The IDs correlate to the `palette_ids` as found in the Models API. Example:
+Allows you to obtain palettes details. The names correlate to the `palette_names` as found in the Models API. Example:
 
 [source,ruby]
 ----
@@ -283,19 +285,30 @@ client.palettes
 
 Success(
   [
-    #<data TRMNL::API::Models::Palette
-      id="bw",
-      name="Black & White (1-bit)",
-      grays=2,
-      colors=nil,
-      framework_class="screen--1bit"
+    #<Struct:TRMNL::API::Models::Palette
+      name = "bw",
+      label = "Black & White (1-bit)",
+      grays = 2,
+      colors = [],
+      framework_class = "screen--1bit"
     >,
-    #<data TRMNL::API::Models::Palette
-      id="color-24bit",
-      name="Color (24-bit)",
-      grays=nil,
-      colors=nil,
-      framework_class=""
+    #<Struct:TRMNL::API::Models::Palette
+      name = "color-3bwr",
+      label = "Color (3 colors)",
+      grays = 2,
+      colors = [
+        "#000000",
+        "#FF0000",
+        "#FFFFFF"
+      ],
+      framework_class = nil
+    >,
+    #<Struct:TRMNL::API::Models::Palette
+      name = "color-24bit",
+      label = "Color (16777216 colors)",
+      grays = 2,
+      colors = [],
+      framework_class = nil
     >
   ]
 )
