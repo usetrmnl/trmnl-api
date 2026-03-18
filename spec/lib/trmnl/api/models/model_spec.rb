@@ -36,7 +36,34 @@ RSpec.describe TRMNL::API::Models::Model do
     end
 
     it "answers record for attributes" do
-      expect(described_class.for(attributes)).to eq(described_class[**attributes])
+      expect(described_class.for(attributes)).to eq(
+        described_class[
+          name: "test",
+          label: "Test",
+          description: "A test.",
+          kind: "trmnl",
+          colors: 2,
+          bit_depth: 1,
+          scale_factor: 1,
+          rotation: 90,
+          mime_type: "image/png",
+          width: 800,
+          height: 480,
+          offset_x: 10,
+          offset_y: 15,
+          palette_names: %w[bw grey-4],
+          css: {
+            classes: {
+              device: "screen--v2",
+              size: "screen--lg"
+            },
+            variables: [
+              %w[--screen-w 1040px],
+              %w[--screen-h 780px]
+            ]
+          }
+        ]
+      )
     end
   end
 
@@ -56,7 +83,7 @@ RSpec.describe TRMNL::API::Models::Model do
         height: 0,
         offset_x: 0,
         offset_y: 0,
-        palette_ids: nil,
+        palette_names: [],
         css: nil
       )
     end
@@ -84,7 +111,7 @@ RSpec.describe TRMNL::API::Models::Model do
         height: 0,
         offset_x: 0,
         offset_y: 0,
-        palette_ids: nil,
+        palette_names: [],
         css: nil
       )
     end

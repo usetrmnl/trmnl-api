@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "refinements/hash"
+
 module TRMNL
   module API
     module Models
@@ -18,10 +20,10 @@ module TRMNL
         :height,
         :offset_x,
         :offset_y,
-        :palette_ids,
+        :palette_names,
         :css
       ) do
-        def self.for(attributes) = new(**attributes)
+        def self.for(attributes) = new(**attributes.transform_keys(palette_ids: :palette_names))
 
         def initialize(**)
           super
@@ -34,6 +36,8 @@ module TRMNL
         private
 
         def apply_defaults
+          self[:palette_names] ||= []
+
           %i[colors bit_depth scale_factor rotation width height offset_x offset_y].each do |name|
             self[name] ||= 0
           end

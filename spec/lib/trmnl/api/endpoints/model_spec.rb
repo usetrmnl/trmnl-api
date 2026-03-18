@@ -71,7 +71,7 @@ RSpec.describe TRMNL::API::Endpoints::Model do
               height: 480,
               offset_x: 10,
               offset_y: 15,
-              palette_ids: %w[bw grey-4],
+              palette_names: %w[bw grey-4],
               css: {
                 classes: {
                   device: "screen--v2",
