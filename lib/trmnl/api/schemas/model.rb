@@ -4,7 +4,7 @@ require "dry/schema"
 
 module TRMNL
   module API
-    module Contracts
+    module Schemas
       # Validates API response.
       Model = Dry::Schema.JSON do
         required(:data).array(:hash) do

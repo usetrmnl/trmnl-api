@@ -10,17 +10,17 @@ module TRMNL
       class IPAddress
         include TRMNL::API::Dependencies[
           :requester,
-          contract: "contracts.ip_address",
+          schema: "schemas.ip_address",
           model: "models.ip_address"
         ]
 
-        include Inspectable[contract: :type]
+        include Inspectable[schema: :type]
         include Pipeable
 
         def call
           pipe requester.get("ips"),
                try(:parse, catch: JSON::ParserError),
-               validate(contract, as: :to_h),
+               validate(schema, as: :to_h),
                as(:fetch, :data),
                to(model, :for)
         end

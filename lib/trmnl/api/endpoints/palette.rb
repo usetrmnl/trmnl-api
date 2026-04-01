@@ -10,18 +10,18 @@ module TRMNL
       class Palette
         include TRMNL::API::Dependencies[
           :requester,
-          contract: "contracts.palette",
+          schema: "schemas.palette",
           model: "models.palette"
         ]
 
-        include Inspectable[contract: :type]
+        include Inspectable[schema: :type]
         include Pipeable
 
         def call
           pipe(
             requester.get("palettes"),
             try(:parse, catch: JSON::ParserError),
-            validate(contract, as: :to_h),
+            validate(schema, as: :to_h),
             as(:fetch, :data),
             map { |data| model.for(**data) }
           )

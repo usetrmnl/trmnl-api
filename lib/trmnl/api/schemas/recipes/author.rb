@@ -4,7 +4,7 @@ require "dry/schema"
 
 module TRMNL
   module API
-    module Contracts
+    module Schemas
       module Recipes
         # Validates API response.
         Author = Dry::Schema.JSON do

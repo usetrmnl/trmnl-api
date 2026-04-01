@@ -4,7 +4,7 @@ require "dry/schema"
 
 module TRMNL
   module API
-    module Contracts
+    module Schemas
       # Validates API response.
       CurrentScreen = Dry::Schema.JSON do
         required(:refresh_rate).filled :integer

@@ -4,7 +4,7 @@ require "dry/schema"
 
 module TRMNL
   module API
-    module Contracts
+    module Schemas
       # Validates API response.
       Firmware = Dry::Schema.JSON do
         required(:url).filled :string

@@ -4,7 +4,7 @@ require "dry/schema"
 
 module TRMNL
   module API
-    module Contracts
+    module Schemas
       # Validates API response.
       Setup = Dry::Schema.JSON do
         required(:api_key).filled :string

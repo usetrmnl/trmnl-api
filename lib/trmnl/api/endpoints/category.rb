@@ -8,16 +8,16 @@ module TRMNL
     module Endpoints
       # Handles API request/response.
       class Category
-        include TRMNL::API::Dependencies[:requester, contract: "contracts.category"]
+        include TRMNL::API::Dependencies[:requester, schema: "schemas.category"]
 
-        include Inspectable[contract: :type]
+        include Inspectable[schema: :type]
         include Pipeable
 
         def call
           pipe(
             requester.get("categories"),
             try(:parse, catch: JSON::ParserError),
-            validate(contract, as: :to_h),
+            validate(schema, as: :to_h),
             as(:fetch, :data)
           )
         end

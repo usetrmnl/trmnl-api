@@ -10,17 +10,17 @@ module TRMNL
       class Display
         include TRMNL::API::Dependencies[
           :requester,
-          contract: "contracts.display",
+          schema: "schemas.display",
           model: "models.display"
         ]
 
-        include Inspectable[contract: :type]
+        include Inspectable[schema: :type]
         include Pipeable
 
         def call token:
           pipe requester.get("display", headers: {"Access-Token" => token}),
                try(:parse, catch: JSON::ParserError),
-               validate(contract, as: :to_h),
+               validate(schema, as: :to_h),
                to(model, :for)
         end
       end

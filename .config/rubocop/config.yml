@@ -7,7 +7,7 @@ Metrics/ParameterLists:
     - lib/trmnl/api/requester.rb
 Naming/VariableNumber:
   Exclude:
-    - lib/trmnl/api/contracts/ip_address.rb
+    - lib/trmnl/api/schemas/ip_address.rb
     - lib/trmnl/api/models/ip_address.rb
     - spec/lib/trmnl/api/models/ip_address_spec.rb
 Style/IpAddresses:

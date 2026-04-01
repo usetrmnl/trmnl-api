@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe TRMNL::API::Contracts::Model do
+RSpec.describe TRMNL::API::Schemas::Model do
   subject(:contract) { described_class }
 
   let :payload do

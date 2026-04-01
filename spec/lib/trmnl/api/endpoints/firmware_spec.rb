@@ -60,7 +60,7 @@ RSpec.describe TRMNL::API::Endpoints::Firmware do
 
   describe "#inspect" do
     it "has inspected attributes" do
-      expect(described_class.new.inspect).to match_inspection(contract: "Dry::Schema::JSON")
+      expect(described_class.new.inspect).to match_inspection(schema: "Dry::Schema::JSON")
     end
   end
 end

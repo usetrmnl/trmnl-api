@@ -11,11 +11,11 @@ module TRMNL
       class Recipe
         include TRMNL::API::Dependencies[
           :requester,
-          contract: "contracts.recipe",
+          schema: "schemas.recipe",
           model: "models.recipe"
         ]
 
-        include Inspectable[contract: :type]
+        include Inspectable[schema: :type]
         include Pipeable
 
         using Refinements::Hash
@@ -26,7 +26,7 @@ module TRMNL
           pipe(
             requester.get("recipes.json", **parameters),
             try(:parse, catch: JSON::ParserError),
-            validate(contract, as: :to_h),
+            validate(schema, as: :to_h),
             to(model, :for)
           )
         end

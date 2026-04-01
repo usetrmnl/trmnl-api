@@ -10,18 +10,18 @@ module TRMNL
       class Model
         include TRMNL::API::Dependencies[
           :requester,
-          contract: "contracts.model",
+          schema: "schemas.model",
           model: "models.model"
         ]
 
-        include Inspectable[contract: :type]
+        include Inspectable[schema: :type]
         include Pipeable
 
         def call
           pipe(
             requester.get("models"),
             try(:parse, catch: JSON::ParserError),
-            validate(contract, as: :to_h),
+            validate(schema, as: :to_h),
             as(:fetch, :data),
             map { |data| model.for(**data) }
           )

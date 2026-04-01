@@ -19,16 +19,16 @@ module TRMNL
         HTTP
       end
 
-      namespace :contracts do
-        register :category, Contracts::Category
-        register :current_screen, Contracts::CurrentScreen
-        register :display, Contracts::Display
-        register :firmware, Contracts::Firmware
-        register :ip_address, Contracts::IPAddress
-        register :model, Contracts::Model
-        register :palette, Contracts::Palette
-        register :recipe, Contracts::Recipe
-        register :setup, Contracts::Setup
+      namespace :schemas do
+        register :category, Schemas::Category
+        register :current_screen, Schemas::CurrentScreen
+        register :display, Schemas::Display
+        register :firmware, Schemas::Firmware
+        register :ip_address, Schemas::IPAddress
+        register :model, Schemas::Model
+        register :palette, Schemas::Palette
+        register :recipe, Schemas::Recipe
+        register :setup, Schemas::Setup
       end
 
       namespace :models do
