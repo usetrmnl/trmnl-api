@@ -228,34 +228,31 @@ client.models
 
 # Success(
 #  [
-#    #<data TRMNL::API::Models::Model
-#      name="test",
-#      label="Test",
-#      description="A test.",
-#      kind="trmnl",
-#      colors=2,
-#      bit_depth=1,
-#      scale_factor=1,
-#      rotation=90,
-#      mime_type="image/png",
-#      width=800,
-#      height=480,
-#      offset_x=10,
-#      offset_y=15,
-#      palette_names=["bw"],
-#      css: {
-#        classes: {
-#          device: "screen--og_png",
-#          size: "screen--md"
+#    #<Struct:TRMNL::API::Models::Model:0x00003c20
+#      bit_depth = 4,
+#      colors = 16,
+#      css = {
+#          classes: {
+#          density: "screen--density-2x",
+#           device: "screen--v2",
+#             size: "screen--lg"
 #        },
 #        variables: [
 #          [
 #            "--screen-w",
-#            "800px"
+#            "1040px"
 #          ],
 #          [
 #            "--screen-h",
-#            "480px"
+#            "780px"
+#          ],
+#          [
+#            "--pixel-ratio",
+#            "1.8"
+#          ],
+#          [
+#            "--dither-pixel-ratio",
+#            "2.0"
 #          ],
 #          [
 #            "--ui-scale",
@@ -266,7 +263,23 @@ client.models
 #            "1.0"
 #          ]
 #        ]
-#      }
+#      },
+#      description = "TRMNL X",
+#      height = 1404,
+#      kind = "trmnl",
+#      label = "TRMNL X",
+#      mime_type = "image/png",
+#      name = "v2",
+#      offset_x = 0,
+#      offset_y = 0,
+#      palette_names = [
+#        "gray-16",
+#        "gray-4",
+#        "bw"
+#      ],
+#      rotation = 0,
+#      scale_factor = 1.8,
+#      width = 1872
 #    >
 #  ]
 # )
@@ -328,7 +341,7 @@ client.recipes search: "comic"     # Answers first page of comics.
 client.recipes sort: "popularity"  # Answers first page sorted by popularity.
 
 # Success(
-#  #<data TRMNL::API::Models::Recipe:0x00010fc0
+#  #<data TRMNL::API::Models::Recipe
 #    data = [
 #      #<Struct:TRMNL::API::Models::Recipes::Data:0x00010fe0
 #        author = #<Struct:TRMNL::API::Models::Recipes::Author:0x00010ff0

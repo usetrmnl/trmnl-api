@@ -37,6 +37,7 @@ RSpec.describe TRMNL::API::Endpoints::Model do
                     "palette_ids": ["bw", "grey-4"],
                     "css": {
                       "classes": {
+                        "density": "screen--density-2x",
                         "device": "screen--v2",
                         "size": "screen--lg"
                       },
@@ -74,6 +75,7 @@ RSpec.describe TRMNL::API::Endpoints::Model do
               palette_names: %w[bw grey-4],
               css: {
                 classes: {
+                  density: "screen--density-2x",
                   device: "screen--v2",
                   size: "screen--lg"
                 },

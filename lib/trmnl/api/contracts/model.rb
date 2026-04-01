@@ -24,6 +24,7 @@ module TRMNL
           required(:palette_ids).array(:string)
           optional(:css).hash do
             optional(:classes).hash do
+              required(:density).filled :string
               required(:device).filled :string
               required(:size).filled :string
             end

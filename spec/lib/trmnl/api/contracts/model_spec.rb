@@ -23,6 +23,7 @@ RSpec.describe TRMNL::API::Contracts::Model do
       palette_ids: %w[bw grey-4],
       css: {
         classes: {
+          density: "screen--density-2x",
           device: "screen--v2",
           size: "screen--lg"
         },
