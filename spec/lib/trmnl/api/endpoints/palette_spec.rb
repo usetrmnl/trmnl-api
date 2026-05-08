@@ -10,62 +10,57 @@ RSpec.describe TRMNL::API::Endpoints::Palette do
   let(:requester) { TRMNL::API::Requester.new http: }
 
   describe "#call" do
-    let :http do
-      HTTP::Fake::Client.new do
-        get "/api/palettes" do
-          headers["Content-Type"] = "application/json"
-          status 200
+    context "with success" do
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/palettes",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {
+                                        data: [
+                                          {
+                                            id: "test",
+                                            name: "Test",
+                                            grays: 2,
+                                            colors: ["#000000", "#FFFFFF"],
+                                            framework_class: "screen--1bit"
+                                          }
+                                        ]
+                                      }.to_json,
+                                      status: 200,
+                                      version: 1.0
 
-          <<~JSON
-            {
-              "data": [
-                {
-                  "id": "test",
-                  "name": "Test",
-                  "grays": 2,
-                  "colors": ["#000000", "#FFFFFF"],
-                  "framework_class": "screen--1bit"
-                }
-              ]
-            }
-          JSON
-        end
+        allow(http).to receive(:get).and_return response
       end
-    end
 
-    it "answers success" do
-      result = endpoint.call
-
-      expect(result).to be_success(
-        [
-          TRMNL::API::Models::Palette[
-            name: "test",
-            label: "Test",
-            grays: 2,
-            colors: %w[#000000 #FFFFFF],
-            framework_class: "screen--1bit"
+      it "answers success" do
+        expect(endpoint.call).to be_success(
+          [
+            TRMNL::API::Models::Palette[
+              name: "test",
+              label: "Test",
+              grays: 2,
+              colors: %w[#000000 #FFFFFF],
+              framework_class: "screen--1bit"
+            ]
           ]
-        ]
-      )
+        )
+      end
     end
 
     context "with failure" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/palettes" do
-            headers["Content-Type"] = "application/json"
-            status 404
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/palettes",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {error: "Danger!"}.to_json,
+                                      status: 404,
+                                      version: 1.0
 
-            <<~JSON
-              {"error": "Danger!"}
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
       it "answers failure" do
-        result = described_class.new(requester:).call
-        expect(result).to match(Failure(be_a(HTTP::Response)))
+        expect(endpoint.call).to match(Failure(be_a(HTTP::Response)))
       end
     end
   end

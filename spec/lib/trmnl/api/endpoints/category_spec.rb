@@ -11,48 +11,37 @@ RSpec.describe TRMNL::API::Endpoints::Category do
 
   describe "#call" do
     context "with success" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/categories" do
-            headers["Content-Type"] = "application/json"
-            status 200
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/categories",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {data: %w[analytics art calendar]}.to_json,
+                                      status: 200,
+                                      version: 1.0
 
-            <<~JSON
-              {
-                "data": [
-                  "analytics",
-                  "art",
-                  "calendar"
-                ]
-              }
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
-      it "answers response" do
+      it "answers success" do
         result = endpoint.call
         expect(result).to be_success(%w[analytics art calendar])
       end
     end
 
     context "with failure" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/categories" do
-            headers["Content-Type"] = "application/json"
-            status 404
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/categories",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {error: "Danger!"}.to_json,
+                                      status: 404,
+                                      version: 1.0
 
-            <<~JSON
-              {"error": "Danger!"}
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
-      it "answers failure response" do
-        result = described_class.new(requester:).call
-        expect(result).to match(Failure(be_a(HTTP::Response)))
+      it "answers failure" do
+        expect(endpoint.call).to match(Failure(be_a(HTTP::Response)))
       end
     end
   end

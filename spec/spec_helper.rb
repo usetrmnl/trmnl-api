@@ -14,7 +14,6 @@ end
 Bundler.require :tools
 
 require "dry/monads"
-require "http/fake"
 require "inspectable/rspec/matchers/match_inspection"
 require "refinements"
 require "trmnl/api"

@@ -15,43 +15,41 @@ RSpec.describe TRMNL::API::Endpoints::Recipe do
 
   describe "#call" do
     context "with success" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/recipes.json" do
-            headers["Content-Type"] = "application/json"
-            status 200
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/recipes.json",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {
+                                        data: [
+                                          {
+                                            id: 1,
+                                            name: "test",
+                                            screenshot_url: "https://screens.trmnl.io/test.png",
+                                            published_at: "2026-01-02T03:04:05.000Z",
+                                            custom_fields: [],
+                                            author_bio: {
+                                              keyname: "test",
+                                              name: "Test",
+                                              field_type: "author_bio"
+                                            },
+                                            stats: {
+                                              installs: 1,
+                                              forks: 2
+                                            }
+                                          }
+                                        ],
+                                        total: 2,
+                                        from: 1,
+                                        to: 2,
+                                        per_page: 25,
+                                        current_page: 1,
+                                        prev_page_url: nil,
+                                        next_page_url: "/recipes.json?page=2"
+                                      }.to_json,
+                                      status: 200,
+                                      version: 1.0
 
-            <<~JSON
-              {
-                "data": [
-                  {
-                    "id": 1,
-                    "name": "test",
-                    "screenshot_url": "https://screens.trmnl.io/test.png",
-                    "published_at": "2026-01-02T03:04:05.000Z",
-                    "custom_fields": [],
-                    "author_bio": {
-                      "keyname": "test",
-                      "name": "Test",
-                      "field_type": "author_bio"
-                    },
-                    "stats": {
-                      "installs": 1,
-                      "forks": 2
-                    }
-                  }
-                ],
-                "total": 2,
-                "from": 1,
-                "to": 2,
-                "per_page": 25,
-                "current_page": 1,
-                "prev_page_url": null,
-                "next_page_url": "/recipes.json?page=2"
-              }
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
       it "answers record" do
@@ -88,22 +86,19 @@ RSpec.describe TRMNL::API::Endpoints::Recipe do
     end
 
     context "with failure" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/recipes.json" do
-            headers["Content-Type"] = "application/json"
-            status 404
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/recipes.json",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {error: "Danger!"}.to_json,
+                                      status: 404,
+                                      version: 1.0
 
-            <<~JSON
-              {"error": "Danger!"}
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
       it "answers failure" do
-        result = described_class.new(requester:).call
-        expect(result).to match(Failure(be_a(HTTP::Response)))
+        expect(endpoint.call).to match(Failure(be_a(HTTP::Response)))
       end
     end
   end

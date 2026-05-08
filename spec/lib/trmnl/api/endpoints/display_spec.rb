@@ -11,29 +11,27 @@ RSpec.describe TRMNL::API::Endpoints::Display do
 
   describe "#call" do
     context "with success" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/display" do
-            headers["Content-Type"] = "application/json"
-            status 200
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/display",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {
+                                        filename: "test.bmp",
+                                        firmware_url: "https://test.io/FW1.4.8.bin",
+                                        image_url: "https://test.io/images/test.bmp",
+                                        refresh_rate: 3200,
+                                        reset_firmware: false,
+                                        special_function: "restart_playlist",
+                                        status: 0,
+                                        update_firmware: true
+                                      }.to_json,
+                                      status: 200,
+                                      version: 1.0
 
-            <<~JSON
-              {
-                "filename": "test.bmp",
-                "firmware_url": "https://test.io/FW1.4.8.bin",
-                "image_url": "https://test.io/images/test.bmp",
-                "refresh_rate": 3200,
-                "reset_firmware": false,
-                "special_function": "restart_playlist",
-                "status": 0,
-                "update_firmware": true
-              }
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
-      it "answers response" do
+      it "answers success" do
         result = endpoint.call token: "secret"
         expect(result).to be_success(
           TRMNL::API::Models::Display[
@@ -50,22 +48,19 @@ RSpec.describe TRMNL::API::Endpoints::Display do
     end
 
     context "with failure" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/display" do
-            headers["Content-Type"] = "application/json"
-            status 404
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/display",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {error: "Danger!"}.to_json,
+                                      status: 404,
+                                      version: 1.0
 
-            <<~JSON
-              {"error": "Danger!"}
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
-      it "answers failure response" do
-        result = described_class.new(requester:).call token: "secret"
-        expect(result).to match(Failure(be_a(HTTP::Response)))
+      it "answers failure" do
+        expect(endpoint.call(token: "secret")).to match(Failure(be_a(HTTP::Response)))
       end
     end
   end

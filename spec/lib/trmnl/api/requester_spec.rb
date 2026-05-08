@@ -22,26 +22,24 @@ RSpec.describe TRMNL::API::Requester do
 
   describe "#get" do
     context "with success" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/current_screen" do
-            headers["Content-Type"] = "application/json"
-            status 200
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/current_screen",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {
+                                        status: 200,
+                                        refresh_rate: 3200,
+                                        image_url: "https://test.io/images/test.bmp",
+                                        filename: "test.bmp",
+                                        rendered_at: nil
+                                      }.to_json,
+                                      status: 200,
+                                      version: 1.0
 
-            <<~JSON
-              {
-                "status": 200,
-                "refresh_rate": 3200,
-                "image_url": "https://test.io/images/test.bmp",
-                "filename": "test.bmp",
-                "rendered_at": null
-              }
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
-      it "answers response" do
+      it "answers success" do
         response = requester.get "current_screen"
         payload = response.fmap(&:parse).bind(&:symbolize_keys!)
 
@@ -70,19 +68,15 @@ RSpec.describe TRMNL::API::Requester do
     end
 
     context "with HTTP error status" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/current_screen" do
-            headers["Content-Type"] = "application/json"
-            status 404
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/current_screen",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {message: "Danger!"}.to_json,
+                                      status: 404,
+                                      version: 1.0
 
-            <<~JSON
-              {
-                "message": "Danger!"
-              }
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
       it "answers failure" do
@@ -174,13 +168,15 @@ RSpec.describe TRMNL::API::Requester do
   end
 
   describe "#post" do
-    let :http do
-      HTTP::Fake::Client.new do
-        post "/api/log" do
-          headers["Content-Type"] = "application/json"
-          status 204
-        end
-      end
+    before do
+      response = HTTP::Response.new uri: "https://trmnl.com/api/log",
+                                    headers: {content_type: "application/json"},
+                                    verb: :post,
+                                    body: {}.to_json,
+                                    status: 204,
+                                    version: 1.0
+
+      allow(http).to receive(:post).and_return response
     end
 
     it "answers response" do

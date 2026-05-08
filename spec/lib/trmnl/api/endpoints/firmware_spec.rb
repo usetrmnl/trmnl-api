@@ -10,50 +10,47 @@ RSpec.describe TRMNL::API::Endpoints::Firmware do
   let(:requester) { TRMNL::API::Requester.new http: }
 
   describe "#call" do
-    let :http do
-      HTTP::Fake::Client.new do
-        get "/api/firmware/latest" do
-          headers["Content-Type"] = "application/json"
-          status 200
+    context "with success" do
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/firmware/latest",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {
+                                        url: "https://test.io/FW1.2.3.bin",
+                                        version: "1.2.3"
+                                      }.to_json,
+                                      status: 200,
+                                      version: 1.0
 
-          <<~JSON
-            {
-              "url": "https://test.io/FW1.2.3.bin",
-              "version": "1.2.3"
-            }
-          JSON
-        end
+        allow(http).to receive(:get).and_return response
       end
-    end
 
-    it "answers success" do
-      result = endpoint.call
+      it "answers success" do
+        result = endpoint.call
 
-      expect(result).to be_success(
-        TRMNL::API::Models::Firmware[
-          url: "https://test.io/FW1.2.3.bin",
-          version: "1.2.3"
-        ]
-      )
+        expect(result).to be_success(
+          TRMNL::API::Models::Firmware[
+            url: "https://test.io/FW1.2.3.bin",
+            version: "1.2.3"
+          ]
+        )
+      end
     end
 
     context "with failure" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/firmware/latest" do
-            headers["Content-Type"] = "application/json"
-            status 404
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/firmware/latest",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {error: "Danger!"}.to_json,
+                                      status: 404,
+                                      version: 1.0
 
-            <<~JSON
-              {"error": "Danger!"}
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
       it "answers failure" do
-        result = described_class.new(requester:).call
-        expect(result).to match(Failure(be_a(HTTP::Response)))
+        expect(endpoint.call).to match(Failure(be_a(HTTP::Response)))
       end
     end
   end

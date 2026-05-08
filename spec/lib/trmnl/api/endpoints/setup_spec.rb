@@ -11,22 +11,20 @@ RSpec.describe TRMNL::API::Endpoints::Setup do
 
   describe "#call" do
     context "with success" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/setup" do
-            headers["Content-Type"] = "application/json"
-            status 200
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/setup",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {
+                                        api_key: "abc",
+                                        friendly_id: "10CBAF",
+                                        image_url: "https://trmnl.com/images/logo.bmp",
+                                        message: "Welcome!"
+                                      }.to_json,
+                                      status: 200,
+                                      version: 1.0
 
-            <<~JSON
-              {
-                "api_key": "abc",
-                "friendly_id": "10CBAF",
-                "image_url": "https://trmnl.com/images/logo.bmp",
-                "message": "Welcome!"
-              }
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
       it "answers record" do
@@ -44,21 +42,19 @@ RSpec.describe TRMNL::API::Endpoints::Setup do
     end
 
     context "with failure" do
-      let :http do
-        HTTP::Fake::Client.new do
-          get "/api/setup" do
-            headers["Content-Type"] = "application/json"
-            status 404
+      before do
+        response = HTTP::Response.new uri: "https://trmnl.com/api/setup",
+                                      headers: {content_type: "application/json"},
+                                      verb: :get,
+                                      body: {error: "Danger!"}.to_json,
+                                      status: 404,
+                                      version: 1.0
 
-            <<~JSON
-              {"error": "Danger!"}
-            JSON
-          end
-        end
+        allow(http).to receive(:get).and_return response
       end
 
       it "answers failure" do
-        result = described_class.new(requester:).call id: "ABC"
+        result = endpoint.call id: "ABC"
         expect(result).to match(Failure(be_a(HTTP::Response)))
       end
     end

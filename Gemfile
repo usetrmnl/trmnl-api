@@ -18,7 +18,6 @@ group :development do
 end
 
 group :test do
-  gem "http-fake", "~> 5.0"
   gem "refinements", "~> 14.0"
   gem "rspec", "~> 3.13"
 end

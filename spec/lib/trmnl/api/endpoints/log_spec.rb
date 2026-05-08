@@ -10,13 +10,15 @@ RSpec.describe TRMNL::API::Endpoints::Log do
   let(:requester) { TRMNL::API::Requester.new http: }
 
   describe "#call" do
-    let :http do
-      HTTP::Fake::Client.new do
-        post "/api/log" do
-          headers["Content-Type"] = "application/json"
-          status 204
-        end
-      end
+    before do
+      response = HTTP::Response.new uri: "https://trmnl.com/api/log",
+                                    headers: {content_type: "application/json"},
+                                    verb: :post,
+                                    body: {}.to_json,
+                                    status: 204,
+                                    version: 1.0
+
+      allow(http).to receive(:post).and_return response
     end
 
     it "answers record" do
