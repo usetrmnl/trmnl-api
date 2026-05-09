@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe TRMNL::API::Models::Firmware do
+RSpec.describe TRMNL::API::Models::LatestFirmware do
   describe ".for" do
     it "answers record for attributes" do
       attributes = {url: "https://test.io/FW1.0.0.bin", version: "1.0.0"}

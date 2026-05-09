@@ -6,7 +6,7 @@ module TRMNL
   module API
     module Schemas
       # Validates API response.
-      Firmware = Dry::Schema.JSON do
+      LatestFirmware = Dry::Schema.JSON do
         required(:url).filled :string
         required(:version).filled :string
       end

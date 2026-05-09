@@ -26,7 +26,7 @@ module TRMNL
         register :category, Schemas::Category
         register :current_screen, Schemas::CurrentScreen
         register :display, Schemas::Display
-        register :firmware, Schemas::Firmware
+        register :latest_firmware, Schemas::LatestFirmware
         register :ip_address, Schemas::IPAddress
         register :model, Schemas::Model
         register :palette, Schemas::Palette
@@ -37,7 +37,7 @@ module TRMNL
       namespace :models do
         register :current_screen, Models::CurrentScreen
         register :display, Models::Display
-        register :firmware, Models::Firmware
+        register :latest_firmware, Models::LatestFirmware
         register :ip_address, Models::IPAddress
         register :model, Models::Model
         register :palette, Models::Palette

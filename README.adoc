@@ -143,18 +143,6 @@ client.display token: "secret"
 # )
 ----
 
-==== Firmware
-
-Allows you to obtain the current stable firmware version. Example:
-
-[source,ruby]
-----
-client = TRMNL::API.new
-client.firmware
-
-# Success(#<data TRMNL::API::Models::Firmware url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin", version="1.4.8">)
-----
-
 ==== IP Addresses
 
 Allows you obtain a list of public IP addresses for all TRMNL core servers because plugin poll requests will only originate from these IPs. Example:
@@ -175,6 +163,22 @@ client.ip_addresses
 #       #<IPAddr: IPv6:1:2:0400:00d1:0000:0001:705e:1001/ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff>
 #     ]
 #   >
+# )
+----
+
+==== Latest Firmware
+
+Allows you to obtain the latest stable firmware version. Example:
+
+[source,ruby]
+----
+client = TRMNL::API.new
+client.latest_firmware
+
+# Success(
+#   #<data TRMNL::API::Models::LatestFirmware
+#          url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin",
+#          version="1.4.8">
 # )
 ----
 

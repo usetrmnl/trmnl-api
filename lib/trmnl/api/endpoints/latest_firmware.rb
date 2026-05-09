@@ -7,11 +7,11 @@ module TRMNL
   module API
     module Endpoints
       # Handles API request/response.
-      class Firmware
+      class LatestFirmware
         include TRMNL::API::Dependencies[
           :requester,
-          schema: "schemas.firmware",
-          model: "models.firmware"
+          schema: "schemas.latest_firmware",
+          model: "models.latest_firmware"
         ]
 
         include Inspectable[schema: :type]
