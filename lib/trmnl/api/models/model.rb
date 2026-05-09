@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "core"
 require "refinements/hash"
 
 module TRMNL
@@ -36,7 +37,7 @@ module TRMNL
         private
 
         def apply_defaults
-          self[:palette_names] ||= []
+          self[:palette_names] ||= Core::EMPTY_ARRAY
 
           %i[colors bit_depth scale_factor rotation width height offset_x offset_y].each do |name|
             self[name] ||= 0

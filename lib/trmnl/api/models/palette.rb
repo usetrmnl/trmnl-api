@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "core"
 require "refinements/hash"
 
 module TRMNL
@@ -14,7 +15,7 @@ module TRMNL
         def initialize(**)
           super
           self[:grays] ||= 0
-          self[:colors] ||= []
+          self[:colors] ||= Core::EMPTY_ARRAY
           freeze
         end
       end

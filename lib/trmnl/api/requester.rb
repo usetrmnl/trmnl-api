@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "core"
 require "dry/monads"
 require "http"
 
@@ -10,16 +11,14 @@ module TRMNL
       include Dependencies[:settings, :http, :logger]
       include Dry::Monads[:result]
 
-      HEADERS = {}.freeze
-
       def initialize(**)
         super
         yield settings if block_given?
       end
 
-      def get(path, headers: HEADERS, **params) = call(__method__, path, headers, params:)
+      def get(path, headers: Core::EMPTY_HASH, **params) = call(__method__, path, headers, params:)
 
-      def post(path, headers: HEADERS, **json) = call(__method__, path, headers, json:)
+      def post(path, headers: Core::EMPTY_HASH, **json) = call(__method__, path, headers, json:)
 
       private
 
