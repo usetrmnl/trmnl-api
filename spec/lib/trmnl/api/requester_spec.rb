@@ -57,11 +57,7 @@ RSpec.describe TRMNL::API::Requester do
 
       it "includes custom header" do
         requester.get "current_screen", headers: {"ID" => "123"}
-
-        expect(http).to have_received(:headers).with(
-          "Content-Type" => "application/json",
-          "ID" => "123"
-        )
+        expect(http).to have_received(:headers).with("ID" => "123")
       end
     end
 

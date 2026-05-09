@@ -13,6 +13,9 @@ module TRMNL
         def call
           model[
             content_type: environment.fetch("TRMNL_API_CONTENT_TYPE", "application/json"),
+            timeout_connect: environment.fetch("TRMNL_API_TIMEOUT_CONNECT", 2).to_i,
+            timeout_read: environment.fetch("TRMNL_API_TIMEOUT_READ", 10).to_i,
+            timeout_write: environment.fetch("TRMNL_API_TIMEOUT_WRITE", 10).to_i,
             uri: environment.fetch("TRMNL_API_URI", "https://trmnl.com/api")
           ]
         end

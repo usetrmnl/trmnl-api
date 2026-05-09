@@ -26,6 +26,9 @@ RSpec.describe TRMNL::API do
       expect(settings).to eq(
         TRMNL::API::Configuration::Content[
           content_type: "application/json",
+          timeout_connect: 2,
+          timeout_read: 10,
+          timeout_write: 10,
           uri: "https://api.test.io"
         ]
       )
