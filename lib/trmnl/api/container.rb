@@ -8,15 +8,18 @@ module TRMNL
   module API
     # Registers application dependencies.
     module Container
-      extend Containable
+      extend Containable[register: Containers::Register]
 
       register(:settings, as: :fresh) { TRMNL::API::Configuration::Loader.new.call }
       register(:requester) { API::Requester.new }
       register(:logger) { Cogger.new id: "trmnl-api", formatter: :json }
 
       register :http do
-        HTTP.default_options = HTTP::Options.new features: {logging: {logger: self[:logger]}}
-        HTTP
+        settings = self[:settings]
+
+        HTTP.timeout(settings.timeout)
+            .headers(settings.headers)
+            .use(logging: {logger: self[:logger]})
       end
 
       namespace :schemas do

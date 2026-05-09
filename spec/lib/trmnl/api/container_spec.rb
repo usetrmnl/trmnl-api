@@ -7,7 +7,7 @@ RSpec.describe TRMNL::API::Container do
 
   describe ".[]" do
     it "answers HTTP" do
-      expect(container[:http]).to eq(HTTP)
+      expect(container[:http]).to be_a(HTTP::Session)
     end
   end
 end
