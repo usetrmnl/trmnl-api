@@ -29,7 +29,8 @@ RSpec.describe TRMNL::API do
           timeout_connect: 2,
           timeout_read: 10,
           timeout_write: 10,
-          uri: "https://api.test.io"
+          uri: "https://api.test.io",
+          user_agent: "RSpec"
         ]
       )
     end

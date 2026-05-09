@@ -13,7 +13,8 @@ RSpec.describe TRMNL::API::Configuration::Loader do
           timeout_connect: 2,
           timeout_read: 10,
           timeout_write: 10,
-          uri: "https://trmnl.com/api"
+          uri: "https://trmnl.com/api",
+          user_agent: "http.rb/#{HTTP::VERSION} (TRMNL API)"
         ]
       )
     end
@@ -24,7 +25,8 @@ RSpec.describe TRMNL::API::Configuration::Loader do
         "TRMNL_API_TIMEOUT_CONNECT" => "1",
         "TRMNL_API_TIMEOUT_READ" => "2",
         "TRMNL_API_TIMEOUT_WRITE" => "3",
-        "TRMNL_API_URI" => "https://trmnl.com"
+        "TRMNL_API_URI" => "https://trmnl.com",
+        "TRMNL_API_USER_AGENT" => "Test"
       }
 
       expect(loader.call).to eq(
@@ -33,7 +35,8 @@ RSpec.describe TRMNL::API::Configuration::Loader do
           timeout_connect: 1,
           timeout_read: 2,
           timeout_write: 3,
-          uri: "https://trmnl.com"
+          uri: "https://trmnl.com",
+          user_agent: "http.rb/#{HTTP::VERSION} (Test)"
         ]
       )
     end
