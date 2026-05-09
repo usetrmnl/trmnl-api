@@ -11,9 +11,7 @@ RSpec.describe TRMNL::API::Endpoints::Log do
 
   describe "#call" do
     before do
-      response = HTTP::Response.new uri: "https://trmnl.com/api/log",
-                                    headers: {content_type: "application/json"},
-                                    verb: :post,
+      response = HTTP::Response.new headers: {content_type: "application/json"},
                                     body: {}.to_json,
                                     status: 204,
                                     version: 1.0

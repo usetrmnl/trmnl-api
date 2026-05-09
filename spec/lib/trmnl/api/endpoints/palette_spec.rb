@@ -12,9 +12,7 @@ RSpec.describe TRMNL::API::Endpoints::Palette do
   describe "#call" do
     context "with success" do
       before do
-        response = HTTP::Response.new uri: "https://trmnl.com/api/palettes",
-                                      headers: {content_type: "application/json"},
-                                      verb: :get,
+        response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {
                                         data: [
                                           {
@@ -49,9 +47,7 @@ RSpec.describe TRMNL::API::Endpoints::Palette do
 
     context "with failure" do
       before do
-        response = HTTP::Response.new uri: "https://trmnl.com/api/palettes",
-                                      headers: {content_type: "application/json"},
-                                      verb: :get,
+        response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {error: "Danger!"}.to_json,
                                       status: 404,
                                       version: 1.0

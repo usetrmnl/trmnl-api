@@ -12,9 +12,7 @@ RSpec.describe TRMNL::API::Endpoints::IPAddress do
   describe "#call" do
     context "with success" do
       before do
-        response = HTTP::Response.new uri: "https://trmnl.com/api/ips",
-                                      headers: {content_type: "application/json"},
-                                      verb: :get,
+        response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {
                                         data: {
                                           "ipv4" => ["192.168.1.10"],
@@ -41,9 +39,7 @@ RSpec.describe TRMNL::API::Endpoints::IPAddress do
 
     context "with failure" do
       before do
-        response = HTTP::Response.new uri: "https://trmnl.com/api/ips",
-                                      headers: {content_type: "application/json"},
-                                      verb: :get,
+        response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {error: "Danger!"}.to_json,
                                       status: 404,
                                       version: 1.0

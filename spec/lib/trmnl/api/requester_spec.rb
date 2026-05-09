@@ -23,9 +23,7 @@ RSpec.describe TRMNL::API::Requester do
   describe "#get" do
     context "with success" do
       before do
-        response = HTTP::Response.new uri: "https://trmnl.com/api/current_screen",
-                                      headers: {content_type: "application/json"},
-                                      verb: :get,
+        response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {
                                         status: 200,
                                         refresh_rate: 3200,
@@ -69,9 +67,7 @@ RSpec.describe TRMNL::API::Requester do
 
     context "with HTTP error status" do
       before do
-        response = HTTP::Response.new uri: "https://trmnl.com/api/current_screen",
-                                      headers: {content_type: "application/json"},
-                                      verb: :get,
+        response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {message: "Danger!"}.to_json,
                                       status: 404,
                                       version: 1.0
@@ -169,13 +165,7 @@ RSpec.describe TRMNL::API::Requester do
 
   describe "#post" do
     before do
-      response = HTTP::Response.new uri: "https://trmnl.com/api/log",
-                                    headers: {content_type: "application/json"},
-                                    verb: :post,
-                                    body: {}.to_json,
-                                    status: 204,
-                                    version: 1.0
-
+      response = HTTP::Response.new status: 204, version: 1.0
       allow(http).to receive(:post).and_return response
     end
 

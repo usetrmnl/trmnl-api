@@ -25,7 +25,7 @@ module TRMNL
 
       def call method, path, headers, **options
         http.headers(settings.headers.merge(headers))
-            .public_send(method, uri(path), options)
+            .public_send(method, uri(path), **options)
             .then { |response| response.status.success? ? Success(response) : Failure(response) }
       rescue HTTP::RequestError => error then handle_bad_request path, error
       rescue HTTP::ConnectionError => error then handle_bad_connection path, error

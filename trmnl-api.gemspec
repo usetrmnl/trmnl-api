@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "dry-monads", "~> 1.9"
   spec.add_dependency "dry-schema", "~> 1.14"
   spec.add_dependency "dry-types", "~> 1.8"
-  spec.add_dependency "http", "~> 5.3"
+  spec.add_dependency "http", "~> 6.0"
   spec.add_dependency "infusible", "~> 5.0"
   spec.add_dependency "inspectable", "~> 1.0"
   spec.add_dependency "pipeable", "~> 2.0"

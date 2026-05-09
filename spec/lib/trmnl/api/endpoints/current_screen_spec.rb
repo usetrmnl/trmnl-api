@@ -12,9 +12,7 @@ RSpec.describe TRMNL::API::Endpoints::CurrentScreen do
   describe "#call" do
     context "with success" do
       before do
-        response = HTTP::Response.new uri: "https://trmnl.com/api/current_screen",
-                                      headers: {content_type: "application/json"},
-                                      verb: :get,
+        response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {
                                         status: 200,
                                         refresh_rate: 3200,
@@ -43,9 +41,7 @@ RSpec.describe TRMNL::API::Endpoints::CurrentScreen do
 
     context "with failure" do
       before do
-        response = HTTP::Response.new uri: "https://trmnl.com/api/current_screen",
-                                      headers: {content_type: "application/json"},
-                                      verb: :get,
+        response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {error: "Danger!"}.to_json,
                                       status: 404,
                                       version: 1.0
