@@ -62,13 +62,17 @@ See xref:_endpoints[Endpoints] for further details.
 
 === Configuration
 
-By default, you shouldn't need to change the default configuration but you can always use a block to adjust settings as desired. If you don't configure the client, then the following defaults will be used:
+By default, you shouldn't need to change the default configuration but you can use a block to adjust settings as desired. If you don't configure the client, then the following defaults will be used:
 
 [source,ruby]
 ----
 client = TRMNL::API.new do |settings|
   settings.content_type = "application/json",
+  settings.timeout_connect = 2
+  settings.timeout_read = 10
+  settings.timeout_write = 10
   settings.uri = "https://trmnl.app/api"
+  settings.user_agent = "TRMNL API"
 end
 ----
 
@@ -77,7 +81,11 @@ end
 You can configure the client via the following environment variables:
 
 * `TRMNL_API_CONTENT_TYPE`: Defines the HTTP `Content-Type` header. You shouldn't need to change this but is here if you need it. Default: `"application/json"`.
+* `TRMNL_API_TIMEOUT_CONNECT`: Defines the time, in seconds, for establishing a connection. Default: `2`.
+* `TRMNL_API_TIMEOUT_READ`: Defines the time, in seconds, for reading content. Default: `10`.
+* `TRMNL_API_TIMEOUT_WRITE`: Defines the time, in seconds, for writing content. Default: `10`.
 * `TRMNL_API_URI`: Defines the API URI. Default: `"https://trmnl.app/api"`.
+* `TRMNL_API_USER_AGENT`: Defines the HTTP `User-Agent` header. You shouldn't need to change this but is here if you need need to customize this for upstream application identification. Default: `"TRMNL API"`. The fully computed user agent ends up being: `"http.rb/6.0.0 (TRMNL API)"` (only the value in parenthesis is configurable).
 
 Any/all environment changes will be applied unless you override these settings via the client configuration block shown above.
 
