@@ -13,11 +13,13 @@ RSpec.describe TRMNL::API::Containers::Register do
     end
 
     it "allows http key override" do
-      expect(register.call(:http, :other)).to eq(%i[other cache])
+      register.call :http, :other
+      expect(register.inspect).to include(%("http" => [:other, :cache]))
     end
 
     it "allows logger key override" do
-      expect(register.call(:logger, :other)).to eq(%i[other cache])
+      register.call :logger, :other
+      expect(register.inspect).to include(%("logger" => [:other, :cache]))
     end
 
     it "fails with invalid override" do
