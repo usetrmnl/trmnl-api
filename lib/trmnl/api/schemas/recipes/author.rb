@@ -38,7 +38,7 @@ module TRMNL
           optional(:"description-is").filled :string
           optional(:"description-id").filled :string
           optional(:email_address).filled :string
-          optional(:learn_more_url).filled :string
+          optional(:learn_more_url).maybe :string
           optional(:github_url).filled :string
           optional(:youtube_url).filled :string
         end
