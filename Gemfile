@@ -20,6 +20,7 @@ end
 group :test do
   gem "refinements", "~> 14.0"
   gem "rspec", "~> 3.13"
+  gem "warning", "~> 1.6"
 end
 
 group :tools do
