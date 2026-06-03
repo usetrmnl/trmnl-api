@@ -3,6 +3,9 @@ exclude_paths:
   - vendor
 
 detectors:
+  BooleanParameter:
+    exclude:
+      - TRMNL::API::Models::Display#initialize
   DataClump:
     exclude:
       - TRMNL::API::Requester

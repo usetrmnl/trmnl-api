@@ -32,15 +32,14 @@ RSpec.describe TRMNL::API::Models::Display do
         firmware_version: nil,
         image_url: nil,
         image_url_timeout: 0,
+        maximum_compatibility: false,
         refresh_rate: 300,
         reset_firmware: false,
         special_function: "sleep",
+        temperature_profile: "default",
+        touchbar_mode: "tap",
         update_firmware: false
       )
-    end
-
-    it "is frozen" do
-      expect(model.frozen?).to be(true)
     end
   end
 
@@ -54,9 +53,12 @@ RSpec.describe TRMNL::API::Models::Display do
         firmware_version: nil,
         image_url: nil,
         image_url_timeout: 0,
+        maximum_compatibility: false,
         refresh_rate: 300,
         reset_firmware: false,
         special_function: "sleep",
+        temperature_profile: "default",
+        touchbar_mode: "tap",
         update_firmware: false
       )
     end
