@@ -20,7 +20,7 @@ module TRMNL
 
         using Refinements::Hash
 
-        def call(**parameters)
+        def call **parameters
           parameters.transform_keys! sort: "sort-by"
 
           pipe(

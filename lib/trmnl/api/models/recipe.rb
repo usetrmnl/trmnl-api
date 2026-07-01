@@ -9,7 +9,7 @@ module TRMNL
       Recipe = ::Data.define :data, :meta do
         def self.empty(meta: Recipes::Meta.new) = new(data: Core::EMPTY_ARRAY, meta:)
 
-        def self.for(**attributes)
+        def self.for **attributes
           meta = attributes.slice :from,
                                   :to,
                                   :current_page,

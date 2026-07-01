@@ -17,7 +17,7 @@ module TRMNL
           :github_url,
           :youtube_url
         ) do
-          def self.for(locale_reducer: LocaleReducer, **attributes)
+          def self.for locale_reducer: LocaleReducer, **attributes
             description_locales = locale_reducer.call attributes
             new(description_locales:, **attributes)
           end

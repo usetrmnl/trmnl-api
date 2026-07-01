@@ -16,7 +16,7 @@ module TRMNL
           :statistics,
           :published_at
         ) do
-          def self.for(**attributes)
+          def self.for **attributes
             new(
               **attributes.merge!(
                 author: Author.for(**attributes.delete(:author_bio)),
