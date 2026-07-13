@@ -146,7 +146,7 @@ client.display token: "secret"
 #     maximum_compatibility=false,
 #     refresh_rate=1765,
 #     reset_firmware=false,
-#     special_function="restart_playlist",
+#     special_function="none",
 #     temperature_profile="default",
 #     touchbar_mode="tap",
 #     update_firmware=true

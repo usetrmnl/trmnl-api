@@ -35,7 +35,7 @@ RSpec.describe TRMNL::API::Models::Display do
         maximum_compatibility: false,
         refresh_rate: 300,
         reset_firmware: false,
-        special_function: "sleep",
+        special_function: "none",
         temperature_profile: "default",
         touchbar_mode: "tap",
         update_firmware: false
@@ -56,7 +56,7 @@ RSpec.describe TRMNL::API::Models::Display do
         maximum_compatibility: false,
         refresh_rate: 300,
         reset_firmware: false,
-        special_function: "sleep",
+        special_function: "none",
         temperature_profile: "default",
         touchbar_mode: "tap",
         update_firmware: false
