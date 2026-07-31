@@ -1,0 +1,19 @@
+organization:
+  label: "Alchemists"
+  uri: "https://alchemists.io"
+project:
+  owner: "usetrmnl"
+  uri:
+    icon: "https://alchemists.io/favicon.ico"
+    logo: "%<organization_uri>s/images/projects/%<project_name>s/logo.png"
+syndication:
+  id: "%<project_uri_version>s/%<id>s"
+  links:
+    - label: "%<organization_label>s: %<project_label>s (web)"
+      mime: "text/html"
+      relation: "alternate"
+      uri: "%<project_uri_home>s/versions"
+    - label: "%<organization_label>s: %<project_label>s (feed)"
+      mime: "application/atom+xml"
+      relation: "self"
+      uri: "%<organization_uri>s/feeds/projects/%<project_name>s.xml"
