@@ -2,17 +2,17 @@
 
 Gem::Specification.new do |spec|
   spec.name = "trmnl-api"
-  spec.version = "0.19.0"
-  spec.authors = ["TRMNL"]
-  spec.email = ["engineering@trmnl.com"]
-  spec.homepage = "https://github.com/usetrmnl/trmnl-api"
+  spec.version = "0.20.0"
+  spec.authors = ["Brooke Kuhlmann"]
+  spec.email = ["brooke@alchemists.io"]
+  spec.homepage = "https://alchemists.io/projects/trmnl-api"
   spec.summary = "A monadic TRMNL API client."
   spec.license = "MIT"
 
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/usetrmnl/trmnl-api/issues",
-    "changelog_uri" => "https://github.com/usetrmnl/trmnl-api/tags",
-    "homepage_uri" => "https://github.com/usetrmnl/trmnl-api",
+    "changelog_uri" => "https://alchemists.io/projects/trmnl-api/versions",
+    "homepage_uri" => "https://alchemists.io/projects/trmnl-api",
     "label" => "TRMNL API",
     "rubygems_mfa_required" => "true",
     "source_code_uri" => "https://github.com/usetrmnl/trmnl-api"

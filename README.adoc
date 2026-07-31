@@ -154,6 +154,84 @@ client.display token: "secret"
 # )
 ----
 
+==== Firmware Flashes
+
+Allows you to obtain firmware flashes. Example:
+
+[source,ruby]
+----
+client = TRMNL::API.new
+client.firmware_flashes
+
+# Success(
+#  [
+#    #<data TRMNL::API::Models::Firmware::Flash:0x000024c0
+#      chip_family = "ESP32-S3",
+#      label = "TRMNL X",
+#      name = "trmnl_x",
+#      versions = [
+#        #<data TRMNL::API::Models::Firmware::Version:0x00002510
+#          label = "FW1.7.7",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.7.7.bin"
+#        >,
+#        #<data TRMNL::API::Models::Firmware::Version:0x00002540
+#          label = "FW1.7.9",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.7.9.bin"
+#        >,
+#        #<data TRMNL::API::Models::Firmware::Version:0x00002570
+#          label = "FW1.8.1",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.8.1.bin"
+#        >,
+#        #<data TRMNL::API::Models::Firmware::Version:0x000025a0
+#          label = "FW1.8.2",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.8.2.bin"
+#        >,
+#        #<data TRMNL::API::Models::Firmware::Version:0x000025d0
+#          label = "FW1.8.5",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.8.5.bin"
+#        >,
+#        #<data TRMNL::API::Models::Firmware::Version:0x00002600
+#          label = "FW1.8.6",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.8.6.bin"
+#        >,
+#        #<data TRMNL::API::Models::Firmware::Version:0x00002630
+#          label = "FW1.8.8",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.8.8.bin"
+#        >,
+#        #<data TRMNL::API::Models::Firmware::Version:0x00002660
+#          label = "FW1.8.9",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.8.9.bin"
+#        >,
+#        #<data TRMNL::API::Models::Firmware::Version:0x00002690
+#          label = "FW1.8.10",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.8.10.bin"
+#        >,
+#        #<data TRMNL::API::Models::Firmware::Version:0x000026c0
+#          label = "FW1.8.12",
+#          uri = "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/flash/FW1.8.12.bin"
+#        >
+#      ]
+#    >
+#  ]
+# )
+----
+
+==== Firmware Latest
+
+Allows you to obtain the latest stable firmware version. Example:
+
+[source,ruby]
+----
+client = TRMNL::API.new
+client.firmware_latest
+
+# Success(
+#   #<data TRMNL::API::Models::Firmware::Latest
+#          url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.8.12.bin",
+#          version="1.4.8">
+# )
+----
+
 ==== IP Addresses
 
 Allows you obtain a list of public IP addresses for all TRMNL core servers because plugin poll requests will only originate from these IPs. Example:
@@ -174,22 +252,6 @@ client.ip_addresses
 #       #<IPAddr: IPv6:1:2:0400:00d1:0000:0001:705e:1001/ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff>
 #     ]
 #   >
-# )
-----
-
-==== Latest Firmware
-
-Allows you to obtain the latest stable firmware version. Example:
-
-[source,ruby]
-----
-client = TRMNL::API.new
-client.latest_firmware
-
-# Success(
-#   #<data TRMNL::API::Models::LatestFirmware
-#          url="https://trmnl-fw.s3.us-east-2.amazonaws.com/FW1.4.8.bin",
-#          version="1.4.8">
 # )
 ----
 
@@ -468,7 +530,19 @@ To test, run:
 bin/rake
 ----
 
+== link:https://alchemists.io/policies/security[Security]
+
+== link:https://alchemists.io/policies/code_of_conduct[Code of Conduct]
+
+== link:https://alchemists.io/policies/contributions[Contributions]
+
+== link:https://alchemists.io/policies/developer_certificate_of_origin[Developer Certificate of Origin]
+
+== link:https://alchemists.io/projects/trmnl-api/versions[Versions]
+
+== link:https://alchemists.io/community[Community]
+
 == Credits
 
 * Built with link:https://alchemists.io/projects/gemsmith[Gemsmith].
-* Engineered by link:https://trmnl.com/developers[TRMNL].
+* Engineered by link:https://alchemists.io/team/brooke_kuhlmann[Brooke Kuhlmann]
