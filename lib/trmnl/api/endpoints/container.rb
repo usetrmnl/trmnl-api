@@ -9,6 +9,10 @@ module TRMNL
       module Container
         extend Containable
 
+        namespace :firmware do
+          register(:flashes) { Firmwares::Flash.new }
+        end
+
         register(:categories) { Category.new }
         register(:current_screen) { CurrentScreen.new }
         register(:display) { Display.new }

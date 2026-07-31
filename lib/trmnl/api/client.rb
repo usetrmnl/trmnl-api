@@ -13,6 +13,7 @@ module TRMNL
         categories: Endpoints::Category,
         current_screen: Endpoints::CurrentScreen,
         display: Endpoints::Display,
+        firmware_flashes: Endpoints::Firmware::Flash,
         ip_addresses: Endpoints::IPAddress,
         latest_firmware: Endpoints::LatestFirmware,
         log: Endpoints::Log,
@@ -39,6 +40,8 @@ module TRMNL
       def current_screen(**) = endpoints.fetch(__method__).call(**)
 
       def display(**) = endpoints.fetch(__method__).call(**)
+
+      def firmware_flashes = endpoints.fetch(__method__).call
 
       def ip_addresses = endpoints.fetch(__method__).call
 
