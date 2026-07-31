@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: Please use the following metadata when citing this project in your work.
+title: TRMNL API
+abstract: A monadic TRMNL API client.
+version: 0.20.0
+license: MIT
+date-released: 2026-07-31
+authors:
+  - family-names: Kuhlmann
+    given-names: Brooke
+    affiliation: Alchemists
+    orcid: https://orcid.org/0000-0002-5810-6268
+keywords:
+ - api
+ - epaper
+ - ruby
+ - trmnl
+repository-code: https://github.com/usetrmnl/trmnl-api
+repository-artifact: https://rubygems.org/gems/trmnl-api
+url: https://alchemists.io/projects/trmnl-api
