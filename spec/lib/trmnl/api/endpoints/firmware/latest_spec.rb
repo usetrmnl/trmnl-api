@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe TRMNL::API::Endpoints::LatestFirmware do
+RSpec.describe TRMNL::API::Endpoints::Firmware::Latest do
   subject(:endpoint) { described_class.new requester: }
 
   include_context "with application dependencies"
@@ -27,7 +27,7 @@ RSpec.describe TRMNL::API::Endpoints::LatestFirmware do
         result = endpoint.call
 
         expect(result).to be_success(
-          TRMNL::API::Models::LatestFirmware[
+          TRMNL::API::Models::Firmware::Latest[
             url: "https://test.io/FW1.2.3.bin",
             version: "1.2.3"
           ]

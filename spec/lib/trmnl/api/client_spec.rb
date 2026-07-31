@@ -87,25 +87,25 @@ RSpec.describe TRMNL::API::Client do
     end
   end
 
+  describe "#firmware_latest" do
+    let :endpoints do
+      {firmware_latest: class_double(TRMNL::API::Endpoints::Firmware::Latest, new: instance)}
+    end
+
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Firmware::Latest }
+
+    it "messages endpoint" do
+      client.firmware_latest
+      expect(instance).to have_received(:call)
+    end
+  end
+
   describe "#ip_addresses" do
     let(:endpoints) { {ip_addresses: class_double(TRMNL::API::Endpoints::IPAddress, new: instance)} }
     let(:instance) { instance_spy TRMNL::API::Endpoints::IPAddress }
 
     it "messages endpoint" do
       client.ip_addresses
-      expect(instance).to have_received(:call)
-    end
-  end
-
-  describe "#latest_firmware" do
-    let :endpoints do
-      {latest_firmware: class_double(TRMNL::API::Endpoints::LatestFirmware, new: instance)}
-    end
-
-    let(:instance) { instance_spy TRMNL::API::Endpoints::LatestFirmware }
-
-    it "messages endpoint" do
-      client.latest_firmware
       expect(instance).to have_received(:call)
     end
   end
