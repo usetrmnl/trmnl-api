@@ -2,7 +2,6 @@
 
 require "inspectable"
 require "pipeable"
-require "refinements/hash"
 
 module TRMNL
   module API
@@ -17,8 +16,6 @@ module TRMNL
 
         include Inspectable[schema: :type]
         include Pipeable
-
-        using Refinements::Hash
 
         def call **parameters
           parameters.transform_keys! sort: "sort-by"

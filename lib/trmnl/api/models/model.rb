@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "core"
-require "refinements/hash"
 
 module TRMNL
   module API
@@ -24,7 +23,7 @@ module TRMNL
         :palette_names,
         :css
       ) do
-        def self.for(attributes) = new(**attributes.transform_keys(palette_ids: :palette_names))
+        def self.for(attributes) = new(**attributes.transform_keys!(palette_ids: :palette_names))
 
         def initialize(**)
           super
