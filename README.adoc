@@ -232,6 +232,38 @@ client.firmware_latest
 # )
 ----
 
+You can also tweak the result to answer current (or past) versions, specific model names, and/or both. Examples:
+
+**By Version**
+
+[source,ruby]
+----
+client = TRMNL::API.new
+client.firmware_latest "1.8.0"
+
+# Success(
+#   #<data TRMNL::API::Models::Firmware::Latest
+#          url="https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_og/FW1.8.0.bin",
+#          version="1.8.0">
+# )
+----
+
+**By Model Name**
+
+[source,ruby]
+----
+client = TRMNL::API.new
+client.firmware_latest model_name: "trmnl_x"
+
+# Success(
+#   #<data TRMNL::API::Models::Firmware::Latest
+#          url="https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/FW1.8.17.bin",
+#          version="1.8.17">
+# )
+----
+
+⚠️ This isn't officially supported by the TRMNL API since the endpoint only knows how to provide the latest firmware for OG models so the above allows you to obtain what you need by dynamically formatting the URI based on version and model name. This also means if you make a typo, you might get a URI that doesn't exist since no verification happens.
+
 ==== IP Addresses
 
 Allows you obtain a list of public IP addresses for all TRMNL core servers because plugin poll requests will only originate from these IPs. Example:
