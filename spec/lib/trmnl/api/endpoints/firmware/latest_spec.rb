@@ -10,7 +10,7 @@ RSpec.describe TRMNL::API::Endpoints::Firmware::Latest do
   let(:requester) { TRMNL::API::Requester.new http: }
 
   describe "#call" do
-    context "with success" do
+    context "with success (default)" do
       before do
         response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {
@@ -23,12 +23,34 @@ RSpec.describe TRMNL::API::Endpoints::Firmware::Latest do
         allow(http).to receive(:get).and_return response
       end
 
-      it "answers success" do
+      it "answers success with no arguments" do
         result = endpoint.call
 
         expect(result).to be_success(
           TRMNL::API::Models::Firmware::Latest[
-            url: "https://test.io/FW1.2.3.bin",
+            url: "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_og/FW1.2.3.bin",
+            version: "1.2.3"
+          ]
+        )
+      end
+
+      it "answers success with version" do
+        result = endpoint.call "0.0.1"
+
+        expect(result).to be_success(
+          TRMNL::API::Models::Firmware::Latest[
+            url: "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_og/FW0.0.1.bin",
+            version: "0.0.1"
+          ]
+        )
+      end
+
+      it "answers success with model name" do
+        result = endpoint.call model_name: "trmnl_x"
+
+        expect(result).to be_success(
+          TRMNL::API::Models::Firmware::Latest[
+            url: "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/FW1.2.3.bin",
             version: "1.2.3"
           ]
         )

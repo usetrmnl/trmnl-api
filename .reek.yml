@@ -9,6 +9,9 @@ detectors:
   DataClump:
     exclude:
       - TRMNL::API::Requester
+  ControlParameter:
+    exclude:
+      - TRMNL::API::Endpoints::Firmware::Latest#call
   LongParameterList:
     enabled: false
   TooManyStatements:

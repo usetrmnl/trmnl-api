@@ -43,7 +43,7 @@ module TRMNL
 
       def firmware_flashes = endpoints.fetch(__method__).call
 
-      def firmware_latest = endpoints.fetch(__method__).call
+      def firmware_latest(...) = endpoints.fetch(__method__).call(...)
 
       def ip_addresses = endpoints.fetch(__method__).call
 
