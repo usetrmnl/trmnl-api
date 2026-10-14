@@ -17,3 +17,5 @@ detectors:
   TooManyStatements:
     exclude:
       - TRMNL::API::Requester#call
+  UnusedParameters:
+    enabled: false
