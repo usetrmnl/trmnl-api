@@ -14,7 +14,7 @@ RSpec.describe TRMNL::API::Models::Display do
         image_url: "https://test.io/images/test.bmp",
         refresh_rate: 3200,
         reset_firmware: false,
-        special_function: "restart_playlist",
+        action: "restart_playlist",
         update_firmware: true
       }
     end
@@ -35,7 +35,7 @@ RSpec.describe TRMNL::API::Models::Display do
         maximum_compatibility: false,
         refresh_rate: 300,
         reset_firmware: false,
-        special_function: "none",
+        action: "none",
         temperature_profile: "default",
         touchbar_mode: "tap",
         update_firmware: false
@@ -56,7 +56,7 @@ RSpec.describe TRMNL::API::Models::Display do
         maximum_compatibility: false,
         refresh_rate: 300,
         reset_firmware: false,
-        special_function: "none",
+        action: "none",
         temperature_profile: "default",
         touchbar_mode: "tap",
         update_firmware: false

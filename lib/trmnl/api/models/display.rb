@@ -13,7 +13,7 @@ module TRMNL
         :maximum_compatibility,
         :refresh_rate,
         :reset_firmware,
-        :special_function,
+        :action,
         :temperature_profile,
         :touchbar_mode,
         :update_firmware
@@ -28,7 +28,7 @@ module TRMNL
                        maximum_compatibility: false,
                        refresh_rate: 300,
                        reset_firmware: false,
-                       special_function: "none",
+                       action: "none",
                        temperature_profile: "default",
                        touchbar_mode: "tap",
                        update_firmware: false

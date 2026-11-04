@@ -19,7 +19,7 @@ RSpec.describe TRMNL::API::Endpoints::Display do
                                         image_url: "https://test.io/images/test.bmp",
                                         refresh_rate: 3200,
                                         reset_firmware: false,
-                                        special_function: "restart_playlist",
+                                        action: "restart_playlist",
                                         status: 0,
                                         update_firmware: true
                                       }.to_json,
@@ -38,7 +38,7 @@ RSpec.describe TRMNL::API::Endpoints::Display do
             image_url: "https://test.io/images/test.bmp",
             refresh_rate: 3200,
             reset_firmware: false,
-            special_function: "restart_playlist",
+            action: "restart_playlist",
             update_firmware: true
           ]
         )
