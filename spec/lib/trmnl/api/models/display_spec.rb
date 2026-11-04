@@ -8,13 +8,13 @@ RSpec.describe TRMNL::API::Models::Display do
   describe ".for" do
     let :attributes do
       {
+        action: "restart_playlist",
         filename: "test.bmp",
         firmware_url: "https://test.io/FW1.4.8.bin",
         firmware_version: "1.4.8",
         image_url: "https://test.io/images/test.bmp",
         refresh_rate: 3200,
         reset_firmware: false,
-        action: "restart_playlist",
         update_firmware: true
       }
     end
@@ -27,6 +27,7 @@ RSpec.describe TRMNL::API::Models::Display do
   describe "#initialize" do
     it "answers default attributes" do
       expect(model.to_h).to eq(
+        action: "none",
         filename: nil,
         firmware_url: nil,
         firmware_version: nil,
@@ -35,7 +36,6 @@ RSpec.describe TRMNL::API::Models::Display do
         maximum_compatibility: false,
         refresh_rate: 300,
         reset_firmware: false,
-        action: "none",
         temperature_profile: "default",
         touchbar_mode: "tap",
         update_firmware: false
@@ -48,6 +48,7 @@ RSpec.describe TRMNL::API::Models::Display do
       payload = JSON model.to_json, symbolize_names: true
 
       expect(payload).to eq(
+        action: "none",
         filename: nil,
         firmware_url: nil,
         firmware_version: nil,
@@ -56,7 +57,6 @@ RSpec.describe TRMNL::API::Models::Display do
         maximum_compatibility: false,
         refresh_rate: 300,
         reset_firmware: false,
-        action: "none",
         temperature_profile: "default",
         touchbar_mode: "tap",
         update_firmware: false

@@ -14,12 +14,12 @@ RSpec.describe TRMNL::API::Endpoints::Display do
       before do
         response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {
+                                        action: "restart_playlist",
                                         filename: "test.bmp",
                                         firmware_url: "https://test.io/FW1.4.8.bin",
                                         image_url: "https://test.io/images/test.bmp",
                                         refresh_rate: 3200,
                                         reset_firmware: false,
-                                        action: "restart_playlist",
                                         status: 0,
                                         update_firmware: true
                                       }.to_json,
@@ -33,12 +33,12 @@ RSpec.describe TRMNL::API::Endpoints::Display do
         result = endpoint.call token: "secret"
         expect(result).to be_success(
           TRMNL::API::Models::Display[
+            action: "restart_playlist",
             filename: "test.bmp",
             firmware_url: "https://test.io/FW1.4.8.bin",
             image_url: "https://test.io/images/test.bmp",
             refresh_rate: 3200,
             reset_firmware: false,
-            action: "restart_playlist",
             update_firmware: true
           ]
         )
