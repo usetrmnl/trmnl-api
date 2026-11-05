@@ -6,9 +6,6 @@ module TRMNL
   module API
     # Provides the primary client for making API requests.
     class Client
-      include Dependencies[:settings]
-      include Inspectable[:endpoints]
-
       ENDPOINTS = {
         categories: Endpoints::Category,
         current_screen: Endpoints::CurrentScreen,
@@ -22,6 +19,9 @@ module TRMNL
         recipes: Endpoints::Recipe,
         setup: Endpoints::Setup
       }.freeze
+
+      include Dependencies[:settings]
+      include Inspectable[:endpoints]
 
       def initialize(requester: Requester, endpoints: ENDPOINTS, **)
         super(**)

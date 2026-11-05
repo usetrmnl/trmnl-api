@@ -9,6 +9,8 @@ module TRMNL
       module Firmware
         # Handles API request/response.
         class Latest
+          ASSET_URI = "https://trmnl-fw.s3.us-east-2.amazonaws.com/%<model_name>s/FW%<version>s.bin"
+
           include TRMNL::API::Dependencies[
             :requester,
             schema: "schemas.firmware.latest",
@@ -17,8 +19,6 @@ module TRMNL
 
           include Inspectable[schema: :type]
           include Pipeable
-
-          ASSET_URI = "https://trmnl-fw.s3.us-east-2.amazonaws.com/%<model_name>s/FW%<version>s.bin"
 
           def initialize(asset_uri: ASSET_URI, **)
             @asset_uri = asset_uri
