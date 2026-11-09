@@ -21,9 +21,17 @@ module TRMNL
         :offset_x,
         :offset_y,
         :palette_names,
+        :default_palette_name,
         :css
       ) do
-        def self.for(attributes) = new(**attributes.transform_keys!(palette_ids: :palette_names))
+        def self.for attributes
+          new(
+            **attributes.transform_keys!(
+              palette_ids: :palette_names,
+              default_palette_id: :default_palette_name
+            )
+          )
+        end
 
         def initialize(**)
           super

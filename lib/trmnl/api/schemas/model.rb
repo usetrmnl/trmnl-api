@@ -22,6 +22,7 @@ module TRMNL
           required(:offset_x).filled :integer
           required(:offset_y).filled :integer
           required(:palette_ids).array(:string)
+          required(:default_palette_id).filled :string
           optional(:css).hash do
             optional(:classes).hash do
               required(:density).filled :string

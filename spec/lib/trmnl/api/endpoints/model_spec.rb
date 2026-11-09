@@ -30,6 +30,7 @@ RSpec.describe TRMNL::API::Endpoints::Model do
                                             offset_x: 10,
                                             offset_y: 15,
                                             palette_ids: %w[bw grey-4],
+                                            default_palette_id: "bw",
                                             css: {
                                               classes: {
                                                 density: "screen--density-2x",
@@ -70,6 +71,7 @@ RSpec.describe TRMNL::API::Endpoints::Model do
               offset_x: 10,
               offset_y: 15,
               palette_names: %w[bw grey-4],
+              default_palette_name: "bw",
               css: {
                 classes: {
                   density: "screen--density-2x",

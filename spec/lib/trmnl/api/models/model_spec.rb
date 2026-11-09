@@ -22,6 +22,7 @@ RSpec.describe TRMNL::API::Models::Model do
         offset_x: 10,
         offset_y: 15,
         palette_ids: %w[bw grey-4],
+        default_palette_id: "bw",
         css: {
           classes: {
             device: "screen--v2",
@@ -52,6 +53,7 @@ RSpec.describe TRMNL::API::Models::Model do
           offset_x: 10,
           offset_y: 15,
           palette_names: %w[bw grey-4],
+          default_palette_name: "bw",
           css: {
             classes: {
               device: "screen--v2",
@@ -84,6 +86,7 @@ RSpec.describe TRMNL::API::Models::Model do
         offset_x: 0,
         offset_y: 0,
         palette_names: [],
+        default_palette_name: nil,
         css: nil
       )
     end
@@ -112,6 +115,7 @@ RSpec.describe TRMNL::API::Models::Model do
         offset_x: 0,
         offset_y: 0,
         palette_names: [],
+        default_palette_name: nil,
         css: nil
       )
     end
