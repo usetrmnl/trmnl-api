@@ -6,32 +6,34 @@ module TRMNL
       # Models the data of the API response.
       Display = Data.define(
         :filename,
-        :firmware_url,
-        :firmware_version,
         :image_url,
         :image_url_timeout,
-        :maximum_compatibility,
         :refresh_rate,
+        :firmware_version,
+        :firmware_url,
+        :update_firmware,
         :reset_firmware,
-        :special_function,
+        :maximum_compatibility,
         :temperature_profile,
         :touchbar_mode,
-        :update_firmware
+        :action,
+        :playlist_image_names
       ) do
         def self.for(attributes) = new(**attributes)
 
         def initialize filename: nil,
-                       firmware_url: nil,
-                       firmware_version: nil,
                        image_url: nil,
                        image_url_timeout: 0,
-                       maximum_compatibility: false,
                        refresh_rate: 300,
+                       firmware_version: nil,
+                       firmware_url: nil,
+                       update_firmware: false,
                        reset_firmware: false,
-                       special_function: "none",
+                       maximum_compatibility: false,
                        temperature_profile: "default",
                        touchbar_mode: "tap",
-                       update_firmware: false
+                       action: nil,
+                       playlist_image_names: nil
           super
         end
 

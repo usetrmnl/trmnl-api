@@ -15,13 +15,18 @@ RSpec.describe TRMNL::API::Endpoints::Display do
         response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {
                                         filename: "test.bmp",
-                                        firmware_url: "https://test.io/FW1.4.8.bin",
                                         image_url: "https://test.io/images/test.bmp",
-                                        refresh_rate: 3200,
+                                        image_url_timeout: 10,
+                                        refresh_rate: 150,
+                                        firmware_version: "1.2.3",
+                                        firmware_url: "https://test.io/FW1.4.8.bin",
+                                        update_firmware: true,
                                         reset_firmware: false,
-                                        special_function: "restart_playlist",
-                                        status: 0,
-                                        update_firmware: true
+                                        maximum_compatibility: false,
+                                        temperature_profile: "default",
+                                        touchbar_mode: "tap",
+                                        action: "identify",
+                                        playlist_image_names: %w[one two three]
                                       }.to_json,
                                       status: 200,
                                       version: 1.0
@@ -34,12 +39,18 @@ RSpec.describe TRMNL::API::Endpoints::Display do
         expect(result).to be_success(
           TRMNL::API::Models::Display[
             filename: "test.bmp",
-            firmware_url: "https://test.io/FW1.4.8.bin",
             image_url: "https://test.io/images/test.bmp",
-            refresh_rate: 3200,
+            image_url_timeout: 10,
+            refresh_rate: 150,
+            firmware_version: "1.2.3",
+            firmware_url: "https://test.io/FW1.4.8.bin",
+            update_firmware: true,
             reset_firmware: false,
-            special_function: "restart_playlist",
-            update_firmware: true
+            maximum_compatibility: false,
+            temperature_profile: "default",
+            touchbar_mode: "tap",
+            action: "identify",
+            playlist_image_names: %w[one two three]
           ]
         )
       end

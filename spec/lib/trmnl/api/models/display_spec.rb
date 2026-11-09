@@ -9,13 +9,18 @@ RSpec.describe TRMNL::API::Models::Display do
     let :attributes do
       {
         filename: "test.bmp",
-        firmware_url: "https://test.io/FW1.4.8.bin",
-        firmware_version: "1.4.8",
         image_url: "https://test.io/images/test.bmp",
-        refresh_rate: 3200,
+        image_url_timeout: 10,
+        refresh_rate: 150,
+        firmware_version: "1.4.8",
+        firmware_url: "https://test.io/FW1.4.8.bin",
+        update_firmware: true,
         reset_firmware: false,
-        special_function: "restart_playlist",
-        update_firmware: true
+        maximum_compatibility: false,
+        temperature_profile: "default",
+        touchbar_mode: "tap",
+        action: nil,
+        playlist_image_names: nil
       }
     end
 
@@ -28,17 +33,18 @@ RSpec.describe TRMNL::API::Models::Display do
     it "answers default attributes" do
       expect(model.to_h).to eq(
         filename: nil,
-        firmware_url: nil,
-        firmware_version: nil,
         image_url: nil,
         image_url_timeout: 0,
-        maximum_compatibility: false,
         refresh_rate: 300,
+        firmware_version: nil,
+        firmware_url: nil,
+        update_firmware: false,
         reset_firmware: false,
-        special_function: "none",
+        maximum_compatibility: false,
         temperature_profile: "default",
         touchbar_mode: "tap",
-        update_firmware: false
+        action: nil,
+        playlist_image_names: nil
       )
     end
   end
@@ -49,17 +55,18 @@ RSpec.describe TRMNL::API::Models::Display do
 
       expect(payload).to eq(
         filename: nil,
-        firmware_url: nil,
-        firmware_version: nil,
         image_url: nil,
         image_url_timeout: 0,
-        maximum_compatibility: false,
         refresh_rate: 300,
+        firmware_version: nil,
+        firmware_url: nil,
+        update_firmware: false,
         reset_firmware: false,
-        special_function: "none",
+        maximum_compatibility: false,
         temperature_profile: "default",
         touchbar_mode: "tap",
-        update_firmware: false
+        action: nil,
+        playlist_image_names: nil
       )
     end
   end
