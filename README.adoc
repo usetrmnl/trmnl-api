@@ -137,20 +137,21 @@ client = TRMNL::API.new
 client.display token: "secret"
 
 # Success(
-#   #<struct TRMNL::API::Models::Display
-#     filename="plugin-4c2660-1780411821",
-#     firmware_url="https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_og/FW1.8.5.bin",
-#     firmware_version="1.8.5",
-#     image_url="https://trmnl.s3.us-east-2.amazonaws.com/...",
-#     image_url_timeout=0,
-#     maximum_compatibility=false,
-#     refresh_rate=1765,
-#     reset_firmware=false,
-#     special_function="none",
-#     temperature_profile="default",
-#     touchbar_mode="tap",
-#     update_firmware=true
-#   >
+#  #<data TRMNL::API::Models::Display
+#    filename="plugin-0ac339-1794250527",
+#    image_url="https://trmnl.s3.us-east-2.amazonaws.com/...",
+#    image_url_timeout=0,
+#    refresh_rate=1769,
+#    firmware_version="1.8.18",
+#    firmware_url="https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_og/FW1.8.18.bin",
+#    update_firmware=true,
+#    reset_firmware=false,
+#    maximum_compatibility=false,
+#    temperature_profile="default",
+#    touchbar_mode="tap",
+#    action=nil,
+#    playlist_image_names=["plugin-0ac339", "plugin-f60d70", "plugin-499f35"]
+#  >
 # )
 ----
 
@@ -386,6 +387,7 @@ client.models
 #        "gray-4",
 #        "bw"
 #      ],
+#      default_palette_name = "gray-16"
 #      rotation = 0,
 #      scale_factor = 1.8,
 #      width = 1872
