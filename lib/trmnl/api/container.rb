@@ -39,6 +39,7 @@ module TRMNL
       namespace :models do
         register :current_screen, Models::CurrentScreen
         register :display, Models::Display
+        register :firmware, Models::Firmware
         register :flash, Models::Flash
         register :ip_address, Models::IPAddress
         register :latest, Models::Latest
