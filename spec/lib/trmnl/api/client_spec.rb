@@ -100,6 +100,19 @@ RSpec.describe TRMNL::API::Client do
     end
   end
 
+  describe "#firmwares" do
+    let :endpoints do
+      {firmwares: class_double(TRMNL::API::Endpoints::Firmware, new: instance)}
+    end
+
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Firmware }
+
+    it "messages endpoint" do
+      client.firmwares
+      expect(instance).to have_received(:call)
+    end
+  end
+
   describe "#ip_addresses" do
     let(:endpoints) { {ip_addresses: class_double(TRMNL::API::Endpoints::IPAddress, new: instance)} }
     let(:instance) { instance_spy TRMNL::API::Endpoints::IPAddress }
