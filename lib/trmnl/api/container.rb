@@ -26,6 +26,7 @@ module TRMNL
         register :category, Schemas::Category
         register :current_screen, Schemas::CurrentScreen
         register :display, Schemas::Display
+        register :firmware, Schemas::Firmware
         register :flash, Schemas::Flash
         register :ip_address, Schemas::IPAddress
         register :latest, Schemas::Latest
