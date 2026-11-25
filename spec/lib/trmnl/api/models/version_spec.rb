@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe TRMNL::API::Models::Firmware::Version do
+RSpec.describe TRMNL::API::Models::Version do
   subject(:version) { described_class[**attributes] }
 
   describe ".for" do

@@ -76,10 +76,10 @@ RSpec.describe TRMNL::API::Client do
 
   describe "#firmware_flashes" do
     let :endpoints do
-      {firmware_flashes: class_double(TRMNL::API::Endpoints::Firmware::Flash, new: instance)}
+      {firmware_flashes: class_double(TRMNL::API::Endpoints::Flash, new: instance)}
     end
 
-    let(:instance) { instance_spy TRMNL::API::Endpoints::Firmware::Flash }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Flash }
 
     it "messages endpoint" do
       client.firmware_flashes
@@ -89,10 +89,10 @@ RSpec.describe TRMNL::API::Client do
 
   describe "#firmware_latest" do
     let :endpoints do
-      {firmware_latest: class_double(TRMNL::API::Endpoints::Firmware::Latest, new: instance)}
+      {firmware_latest: class_double(TRMNL::API::Endpoints::Latest, new: instance)}
     end
 
-    let(:instance) { instance_spy TRMNL::API::Endpoints::Firmware::Latest }
+    let(:instance) { instance_spy TRMNL::API::Endpoints::Latest }
 
     it "messages endpoint" do
       client.firmware_latest

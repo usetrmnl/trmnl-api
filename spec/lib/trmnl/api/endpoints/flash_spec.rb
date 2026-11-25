@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe TRMNL::API::Endpoints::Firmware::Latest do
+RSpec.describe TRMNL::API::Endpoints::Flash do
   subject(:endpoint) { described_class.new requester: }
 
   include_context "with application dependencies"
@@ -10,12 +10,25 @@ RSpec.describe TRMNL::API::Endpoints::Firmware::Latest do
   let(:requester) { TRMNL::API::Requester.new http: }
 
   describe "#call" do
-    context "with success (default)" do
+    context "with success" do
       before do
         response = HTTP::Response.new headers: {content_type: "application/json"},
                                       body: {
-                                        url: "https://test.io/FW1.2.3.bin",
-                                        version: "1.2.3"
+                                        data: {
+                                          models: [
+                                            {
+                                              keyname: "test",
+                                              label: "Test",
+                                              chipFamily: "Test Family",
+                                              versions: [
+                                                {
+                                                  version: "FW1.2.3",
+                                                  url: "https://test.io/FW1.2.3.bin"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
                                       }.to_json,
                                       status: 200,
                                       version: 1.0
@@ -23,35 +36,19 @@ RSpec.describe TRMNL::API::Endpoints::Firmware::Latest do
         allow(http).to receive(:get).and_return response
       end
 
-      it "answers success with no arguments" do
+      it "answers success" do
         result = endpoint.call
 
         expect(result).to be_success(
-          TRMNL::API::Models::Firmware::Latest[
-            url: "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_og/FW1.2.3.bin",
-            version: "1.2.3"
-          ]
-        )
-      end
-
-      it "answers success with version" do
-        result = endpoint.call "0.0.1"
-
-        expect(result).to be_success(
-          TRMNL::API::Models::Firmware::Latest[
-            url: "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_og/FW0.0.1.bin",
-            version: "0.0.1"
-          ]
-        )
-      end
-
-      it "answers success with model name" do
-        result = endpoint.call model_name: "trmnl_x"
-
-        expect(result).to be_success(
-          TRMNL::API::Models::Firmware::Latest[
-            url: "https://trmnl-fw.s3.us-east-2.amazonaws.com/trmnl_x/FW1.2.3.bin",
-            version: "1.2.3"
+          [
+            TRMNL::API::Models::Flash[
+              name: "test",
+              label: "Test",
+              chip_family: "Test Family",
+              versions: [
+                TRMNL::API::Models::Version[label: "FW1.2.3", uri: "https://test.io/FW1.2.3.bin"]
+              ]
+            ]
           ]
         )
       end

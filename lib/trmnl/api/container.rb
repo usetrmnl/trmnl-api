@@ -23,15 +23,12 @@ module TRMNL
       end
 
       namespace :schemas do
-        namespace :firmware do
-          register :flash, Schemas::Firmware::Flash
-          register :latest, Schemas::Firmware::Latest
-        end
-
         register :category, Schemas::Category
         register :current_screen, Schemas::CurrentScreen
         register :display, Schemas::Display
+        register :flash, Schemas::Flash
         register :ip_address, Schemas::IPAddress
+        register :latest, Schemas::Latest
         register :model, Schemas::Model
         register :palette, Schemas::Palette
         register :recipe, Schemas::Recipe
@@ -39,14 +36,11 @@ module TRMNL
       end
 
       namespace :models do
-        namespace :firmware do
-          register :flash, Models::Firmware::Flash
-          register :latest, Models::Firmware::Latest
-        end
-
         register :current_screen, Models::CurrentScreen
         register :display, Models::Display
+        register :flash, Models::Flash
         register :ip_address, Models::IPAddress
+        register :latest, Models::Latest
         register :model, Models::Model
         register :palette, Models::Palette
         register :recipe, Models::Recipe

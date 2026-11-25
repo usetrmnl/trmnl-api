@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe TRMNL::API::Models::Firmware::Flash do
+RSpec.describe TRMNL::API::Models::Flash do
   subject(:recipe) { described_class[**attributes] }
 
   describe ".for" do
@@ -27,10 +27,7 @@ RSpec.describe TRMNL::API::Models::Firmware::Flash do
           label: "Test",
           chip_family: "Test Family",
           versions: [
-            TRMNL::API::Models::Firmware::Version[
-              label: "FW1.2.3",
-              uri: "https://test.io/FW1.5.6.bin"
-            ]
+            TRMNL::API::Models::Version[label: "FW1.2.3", uri: "https://test.io/FW1.5.6.bin"]
           ]
         ]
       )
